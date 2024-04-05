@@ -23,7 +23,7 @@ jobs:
         with:
           tag: ${{ env.PROCESSING_TAG }}
       - name: Tree
-        if: ${{ matrix.os == "windows-2022" }}
+        if: runner.os == 'Windows'
         run: tree /F
       - name: Export
         run: processing-java --sketch="../${{ github.event.repository.name }}" --output=out --force --export
