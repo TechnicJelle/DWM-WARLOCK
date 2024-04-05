@@ -26,6 +26,8 @@ jobs:
         # The processing-java prefers absolute paths on Windows.
         run: processing-java --sketch="${{ github.workspace }}" --output="${{ github.workspace }}/out" --force --export
       - name: Linux workaround for permissions
+        # Zipping up the project clears the executable bit on the java binary, so make the startup script enable it again.
+        #  https://github.com/actions/upload-artifact?tab=readme-ov-file#permission-loss
         if: runner.os == 'Linux'
         run: sed -i '5i chmod +x $APPDIR/java/bin/java' out/DWM_WARLOCK
       - name: Upload a Build Artifact
