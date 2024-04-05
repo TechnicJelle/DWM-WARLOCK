@@ -20,7 +20,7 @@ jobs:
       - name: Setup Processing
         uses: pr1metine/setup-processing@v2.1.0
         with:
-          tag: "$PROCESSING_TAG"
+          tag: ${{ env.PROCESSING_TAG }}
       - name: Export
         run: processing-java --variant=$VARIANT --sketch="../${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
@@ -39,7 +39,7 @@ jobs:
       - name: Setup Processing
         uses: pr1metine/setup-processing@v2.1.0
         with:
-          tag: "$PROCESSING_TAG"
+          tag: ${{ env.PROCESSING_TAG }}
       - name: Export
         run: processing-java --variant=$VARIANT --sketch="../${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
