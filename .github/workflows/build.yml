@@ -12,9 +12,10 @@ env:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-22.04
-    env:
-      VARIANT: linux-amd64
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Processing
@@ -22,30 +23,11 @@ jobs:
         with:
           tag: ${{ env.PROCESSING_TAG }}
       - name: Export
-        run: processing-java --variant=$VARIANT --sketch="../${{ github.event.repository.name }}" --output=out --force --export
+        run: processing-java --sketch="../${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "DWM_WARLOCK ($VARIANT)"
-          path: |
-            ./out/
-            !./out/source/
-  build-windows:
-    runs-on: windows-2022
-    env:
-      VARIANT: windows-amd64
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Processing
-        uses: pr1metine/setup-processing@v2.1.0
-        with:
-          tag: ${{ env.PROCESSING_TAG }}
-      - name: Export
-        run: processing-java --variant=$VARIANT --sketch="../${{ github.event.repository.name }}" --output=out --force --export
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: "DWM_WARLOCK ($VARIANT)"
+          name: "DWM_WARLOCK (${{ matrix.os }})"
           path: |
             ./out/
             !./out/source/
