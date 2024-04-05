@@ -1,21 +1,26 @@
-enum WolfState {  IDLE, EXPLORING, HUNTING };
+enum FoxState {
+  IDLE, EXPLORING, HUNTING
+};
 
 
-class Wolf{
-  
+class Fox {
+
   PVector pos, winSize, target, moveDir = new PVector(0, 0);
   float moveSpeed = 0f;
   int ticSpeed, ticCounter = 0;
 
-   WolfState state = WolfState.IDLE;
- 
-  Wolf(PVector pWindowSize, float pMoveSpeed){
+  ArrayList<Chicken> chickens;
+
+  FoxState state = FoxState.IDLE;
+
+  Fox(PVector pWindowSize, float pMoveSpeed, ArrayList<Chicken> pChickens) {
     winSize = new PVector(pWindowSize.x, pWindowSize.y);
     pos = new PVector(winSize.x*0.5f + 30, winSize.y *0.5f -5);
     moveSpeed = pMoveSpeed;
+    chickens = pChickens;
   }
-  
- void move() {
+
+  void move() {
     PVector dir = new PVector(moveDir.x, moveDir.y); //Needed to not keep multiplying moveDir
     pos.add(dir.mult(moveSpeed));
     ticCounter -= 1;
@@ -34,7 +39,7 @@ class Wolf{
     checkBorders();
     if (keyPressed) {
       if (key == ' ' ) {
-        state = WolfState.EXPLORING;
+        state = FoxState.EXPLORING;
         moveDir = new PVector(1, 1);
         ticSpeed = 100;
       }
@@ -53,12 +58,12 @@ class Wolf{
     case HUNTING:
       break;
     }
+    println(chickens.size());
   }
-  
-  void render(){
+
+  void render() {
     rectMode(CENTER);
     fill(color(127));
-    rect(pos.x, pos.y, 25,10);
+    rect(pos.x, pos.y, 25, 10);
   }
-  
 }

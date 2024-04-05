@@ -64,21 +64,21 @@ class Chicken {
     rectMode(CENTER);
     fill(color(255));
     rect(pos.x, pos.y, 15, 20);
-    
+
     rectMode(CENTER);
-    fill(color(255,0,0));
+    fill(color(255, 0, 0));
     rect(pos.x, pos.y-10, 5, 8);
-    
+
     rectMode(CENTER);
-    fill(color(255,255,0));
+    fill(color(255, 255, 0));
     rect(pos.x-8, pos.y-2, 6, 4);
-    
+
     rectMode(CENTER);
-    fill(color(255,255,0));
+    fill(color(255, 255, 0));
     rect(pos.x-3, pos.y+12, 3, 4);
-    
+
     rectMode(CENTER);
-    fill(color(255,255,0));
+    fill(color(255, 255, 0));
     rect(pos.x+3, pos.y+12, 3, 4);
   }
 }
