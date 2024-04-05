@@ -1,38 +1,51 @@
 name: Build
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+env:
+  PROCESSING_TAG: processing-1293-4.3
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+jobs:
+  build-linux:
+    runs-on: ubuntu-22.04
+    env:
+      VARIANT: linux-amd64
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Processing
         uses: pr1metine/setup-processing@v2.1.0
         with:
-          tag: "processing-1293-4.3"
-          asset-name: "processing-4.3-linux-x64.tgz"
-
+          tag: "$PROCESSING_TAG"
       - name: Export
-        run: processing-java --sketch=../DWM_WARLOCK --output=./out --force --export
-
+        run: processing-java --variant=$VARIANT --sketch="../${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "linux-amd64"
-          path: "./out"
+          name: "DWM_WARLOCK ($VARIANT)"
+          path: |
+            ./out/
+            !./out/source/
+  build-windows:
+    runs-on: windows-2022
+    env:
+      VARIANT: windows-amd64
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Processing
+        uses: pr1metine/setup-processing@v2.1.0
+        with:
+          tag: "$PROCESSING_TAG"
+      - name: Export
+        run: processing-java --variant=$VARIANT --sketch="../${{ github.event.repository.name }}" --output=out --force --export
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "DWM_WARLOCK ($VARIANT)"
+          path: |
+            ./out/
+            !./out/source/
