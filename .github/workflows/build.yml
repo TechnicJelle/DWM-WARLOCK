@@ -28,7 +28,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "${{ github.event.repository.name }} (${{ matrix.os }})"
+          name: "${{ github.event.repository.name }}(${{ runner.os }})"
           path: |
             ./out/
             !./out/source/
