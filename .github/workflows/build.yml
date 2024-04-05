@@ -25,6 +25,9 @@ jobs:
       - name: Export
         # The processing-java prefers absolute paths on Windows.
         run: processing-java --sketch="${{ github.workspace }}" --output="${{ github.workspace }}/out" --force --export
+      - name: Linux workaround for permissions
+        if: runner.os == 'Linux'
+        run: sed -i '5i chmod +x $APPDIR/java/bin/java' out/DWM_WARLOCK
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
