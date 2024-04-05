@@ -30,6 +30,7 @@ jobs:
           cd ..
           pwd
           ls
+          processing-java --sketch="D:\a\DWM_WARLOCK\DWM_WARLOCK" --output=out --force --export
       - name: Export
         run: processing-java --sketch="../${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
