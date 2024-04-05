@@ -21,8 +21,7 @@ class Fox {
   }
 
   void move() {
-    PVector dir = new PVector(moveDir.x, moveDir.y); //Needed to not keep multiplying moveDir
-    pos.add(dir.mult(moveSpeed));
+    pos.add(PVector.mult(moveDir, moveSpeed));
     ticCounter -= 1;
   }
 
@@ -35,11 +34,27 @@ class Fox {
     }
   }
 
+  Chicken getClosestChicken() {
+    Chicken closest = chickens.get(0);
+    float distance = 99999999;
+
+    for (Chicken chimken : chickens) {
+      PVector deltaPos = PVector.sub(chimken.pos,pos);
+
+      if (deltaPos.magSq() < distance) {
+        distance = deltaPos.magSq();
+        closest = chimken;
+      }
+    }
+
+    return closest;
+  }
+
   void update() {
     checkBorders();
     if (keyPressed) {
       if (key == ' ' ) {
-        state = FoxState.EXPLORING;
+        state = FoxState.HUNTING;
         moveDir = new PVector(1, 1);
         ticSpeed = 100;
       }
@@ -56,6 +71,8 @@ class Fox {
       move();
       break;
     case HUNTING:
+      moveDir =  PVector.sub(pos, getClosestChicken().pos).normalize();
+      move();
       break;
     }
     println(chickens.size());
@@ -63,7 +80,15 @@ class Fox {
 
   void render() {
     rectMode(CENTER);
-    fill(color(127));
+    fill(color(255, 160, 0));
     rect(pos.x, pos.y, 25, 10);
+
+    rectMode(CENTER);
+    fill(color(255));
+    rect(pos.x+14, pos.y-1, 9, 5);
+
+    rectMode(CENTER);
+    fill(color(250, 170, 0));
+    rect(pos.x-13, pos.y-3, 9, 9);
   }
 }
