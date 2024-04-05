@@ -24,7 +24,7 @@ jobs:
           tag: ${{ env.PROCESSING_TAG }}
       - name: Tree
         if: runner.os == 'Windows'
-        run: tree /F
+        run: tree .. /A
       - name: Export
         run: processing-java --sketch="../${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
