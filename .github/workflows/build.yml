@@ -22,16 +22,8 @@ jobs:
         uses: pr1metine/setup-processing@v2.1.0
         with:
           tag: ${{ env.PROCESSING_TAG }}
-      - name: Tree
-        if: runner.os == 'Windows'
-        run: |
-          pwd
-          ls
-          cd ..
-          pwd
-          ls
-          processing-java --sketch="D:\a\DWM_WARLOCK\DWM_WARLOCK" --output=out --force --export
       - name: Export
+        # The processing-java prefers absolute paths on Windows.
         run: processing-java --sketch="${{ github.workspace }}" --output="${{ github.workspace }}/out" --force --export
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
