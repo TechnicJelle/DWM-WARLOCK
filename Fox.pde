@@ -15,7 +15,7 @@ class Fox {
 
   Fox(PVector pWindowSize, float pMoveSpeed, ArrayList<Chicken> pChickens) {
     winSize = new PVector(pWindowSize.x, pWindowSize.y);
-    pos = new PVector(winSize.x*0.5f + 30, winSize.y *0.5f -5);
+    pos = new PVector(winSize.x*0.5f + 100, winSize.y *0.5f -5);
     moveSpeed = pMoveSpeed;
     chickens = pChickens;
   }
@@ -39,7 +39,7 @@ class Fox {
     float distance = 99999999;
 
     for (Chicken chimken : chickens) {
-      PVector deltaPos = PVector.sub(chimken.pos,pos);
+      PVector deltaPos = PVector.sub(chimken.pos, pos);
 
       if (deltaPos.magSq() < distance) {
         distance = deltaPos.magSq();
@@ -71,7 +71,7 @@ class Fox {
       move();
       break;
     case HUNTING:
-      moveDir =  PVector.sub(pos, getClosestChicken().pos).normalize();
+      moveDir =  PVector.sub(getClosestChicken().pos, pos).normalize();
       move();
       break;
     }
