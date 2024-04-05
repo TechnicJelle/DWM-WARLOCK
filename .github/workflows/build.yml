@@ -22,6 +22,8 @@ jobs:
         uses: pr1metine/setup-processing@v2.1.0
         with:
           tag: ${{ env.PROCESSING_TAG }}
+      - name: Tree
+        run: tree /F
       - name: Export
         run: processing-java --sketch="../${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
