@@ -32,7 +32,7 @@ jobs:
           ls
           processing-java --sketch="D:\a\DWM_WARLOCK\DWM_WARLOCK" --output=out --force --export
       - name: Export
-        run: processing-java --sketch="${{ github.workspace }}/${{ github.event.repository.name }}" --output="${{ github.workspace }}/out" --force --export
+        run: processing-java --sketch="${{ github.workspace }}" --output="${{ github.workspace }}/out" --force --export
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
