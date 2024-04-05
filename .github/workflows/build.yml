@@ -22,15 +22,14 @@ jobs:
         uses: pr1metine/setup-processing@v2.1.0
         with:
           tag: ${{ env.PROCESSING_TAG }}
-      - name: Tree
-        if: runner.os == 'Windows'
-        run: tree .. /A
       - name: Export
-        run: processing-java --sketch="../${{ github.event.repository.name }}" --output=out --force --export
+        run: |
+          cd ..
+          processing-java --sketch="${{ github.event.repository.name }}" --output=out --force --export
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "DWM_WARLOCK (${{ matrix.os }})"
+          name: "${{ github.event.repository.name }} (${{ matrix.os }})"
           path: |
             ./out/
             !./out/source/
