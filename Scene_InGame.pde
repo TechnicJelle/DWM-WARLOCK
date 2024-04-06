@@ -1,18 +1,28 @@
 Integer score;
-Float timeSinceSceneStart;
+Float timeSinceSaveStart;
+
+enum PlayState {
+  INTRO, SAVE, KILL
+}
 
 class Scene_InGame implements Scene {
+  float timeSinceSceneStart;
   PVector windowStartedPos;
-  int startMillis;
+  int sceneStartMillis;
   boolean windowHasNotBeenMovedYet;
   PVector mouseDownPos;
   World world;
+
+  PlayState playState;
+  int saveStartMillis;
 
   boolean netIsDown;
 
   void init() {
     score = 0;
     timeSinceSceneStart = 0f;
+
+    playState = PlayState.INTRO;
 
     getSurface().setAlwaysOnTop(false);
 
@@ -29,13 +39,16 @@ class Scene_InGame implements Scene {
     windowStartedPos = windowDragger.getWinPos();
     windowHasNotBeenMovedYet = true;
     mouseDownPos = windowDragger.getScreenMouse();
-    startMillis = millis();
+    sceneStartMillis = millis();
 
     netIsDown = false;
   }
 
   void update() {
-    timeSinceSceneStart = (millis() - startMillis) / 1000f; //in seconds
+    timeSinceSceneStart = (millis() - sceneStartMillis) / 1000f; //in seconds
+
+    if (timeSinceSaveStart != null)
+      timeSinceSaveStart = (millis() - saveStartMillis) / 1000f; //in seconds
 
     world.update();
 
@@ -60,11 +73,6 @@ class Scene_InGame implements Scene {
     } else {
       windowDragger.clickDragWindow();
     }
-
-    if (random(200) < 1) {
-      score++;
-      println("bumped score to ", score);
-    }
   }
 
   void render() {
@@ -72,14 +80,23 @@ class Scene_InGame implements Scene {
     PVector winPos = windowDragger.getWinPos();
     image(world.canvas, -winPos.x, -winPos.y);
 
-    if (windowHasNotBeenMovedYet) {
+    switch(playState) {
+    case INTRO:
+      if (!windowHasNotBeenMovedYet) {
+        playState = PlayState.SAVE;
+        timeSinceSaveStart = 0f;
+        saveStartMillis = millis();
+        world.spawnFox();
+      }
+
       fill(WHITE);
       textSize(20);
       text("↑\nMove the window\n←  by clicking and dragging  →\nanywhere inside\n↓", width/2, height/2);
 
       textSize(16);
       text("Do not grab the window by the top bar!", width/2, height*0.9);
-    } else {
+      break;
+    case SAVE:
       if (netIsDown) {
         //////////////////NET TEST
         pushMatrix();
@@ -231,14 +248,38 @@ class Scene_InGame implements Scene {
 
         popMatrix();
       }
+      if (world.chickens.isEmpty()) {
+        playState = PlayState.KILL;
+      }
+      break;
+    case KILL:
+      noFill();
+      stroke(RED);
+      strokeWeight(2);
+      circle(width/2, height/2, netIsDown ? 16 : 22);
+      line(width/2 - 5, height/2, width/2 - 17, height/2); //left
+      line(width/2, height/2 - 5, width/2, height/2 - 17); //top
+      line(width/2 + 5, height/2, width/2 + 17, height/2); //right
+      line(width/2, height/2 + 5, width/2, height/2 + 17); //bottom
+      break;
     }
   }
 
   void keyPressed() {
-    if (key == ' ') {
+    if (key == ' ' && !netIsDown) {
       netIsDown = true;
       PVector screenSize = new PVector(width/2, height/2);
-      world.attemptCatchChickenAt(windowDragger.getWinPos().add(screenSize));
+      PVector screenCenter = windowDragger.getWinPos().add(screenSize);
+      switch(playState) {
+      case INTRO:
+        break;
+      case SAVE:
+        world.attemptCatchChickenAt(screenCenter);
+        break;
+      case KILL:
+        world.attemptShootFoxAt(screenCenter);
+        break;
+      }
     }
   }
 
@@ -249,9 +290,9 @@ class Scene_InGame implements Scene {
   }
 
   void mousePressed() {
-    if (mouseButton == RIGHT) {
-      gameState.nextScene();
-    }
+    //if (mouseButton == RIGHT) {
+    //  gameState.nextScene();
+    //}
 
     mouseDownPos = windowDragger.getScreenMouse();
   }
@@ -270,6 +311,6 @@ class Scene_InGame implements Scene {
     world.cleanup();
     statsWindow.getSurface().setVisible(false);
     sizeToResizeTo = new PVector(WIDTH, HEIGHT);
-    timeSinceSceneStart = null;
+    timeSinceSaveStart = null;
   }
 }

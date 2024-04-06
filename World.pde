@@ -1,4 +1,5 @@
-Integer chickensAlive;
+Integer amountOfChickensToSpawn;
+Integer amountOfChickensSaved;
 
 class World implements Scene {
   int Width;
@@ -8,7 +9,6 @@ class World implements Scene {
   PGraphics canvas;
 
   ArrayList<Chicken> chickens;
-  int amountOfChickensToSpawn;
   Fox fox;
 
   ArrayList<InWorldPopup> popups;
@@ -21,7 +21,6 @@ class World implements Scene {
     drawBackground();
 
     amountOfChickensToSpawn = int(random(10, 20));
-    chickensAlive = amountOfChickensToSpawn;
 
     PVector worldSize = new PVector(Width, Height);
     chickens = new ArrayList<Chicken>();
@@ -29,14 +28,21 @@ class World implements Scene {
       PVector pos = new PVector(random(Width), random(Height));
       chickens.add(new Chicken(worldSize, pos, random(5, 10)));
     }
-    PVector pos = new PVector(random(Width), random(Height));
-    fox = new Fox(worldSize, pos, 10, chickens);
 
     popups = new ArrayList<InWorldPopup>();
+
+    amountOfChickensSaved = 0;
   }
 
   void init() {
   }
+
+  void spawnFox() {
+    PVector worldSize = new PVector(Width, Height);
+    PVector pos = new PVector(random(Width), random(Height));
+    fox = new Fox(worldSize, pos, 10, chickens);
+  }
+
 
   void drawBackground() {
     background.beginDraw();
@@ -61,8 +67,16 @@ class World implements Scene {
       if (pos.dist(c.pos) < 32) {
         chickens.remove(i);
         popups.add(new InWorldPopup(c.pos, "Caught!", 2));
+        amountOfChickensSaved++;
         return;
       }
+    }
+  }
+
+  void attemptShootFoxAt(PVector pos) {
+    if (pos.dist(fox.pos) < 32) {
+      gameState.nextScene();
+      score = round(amountOfChickensSaved * 500 - timeSinceSaveStart * 10);
     }
   }
 
@@ -72,9 +86,8 @@ class World implements Scene {
       chicken.update();
     }
 
-    fox.update();
-
-    chickensAlive = chickens.size();
+    if (fox != null)
+      fox.update();
 
     for (int i = popups.size()-1; i >= 0; i--) {
       popups.get(i).update();
@@ -94,7 +107,8 @@ class World implements Scene {
       chicken.render(canvas);
     }
 
-    fox.render(canvas);
+    if (fox != null)
+      fox.render(canvas);
 
     for (InWorldPopup popup : popups) {
       popup.render(canvas);
@@ -105,7 +119,8 @@ class World implements Scene {
   }
 
   void cleanup() {
-    chickensAlive = null;
+    amountOfChickensToSpawn = null;
+    amountOfChickensSaved = null;
   }
 
   void mousePressed() {

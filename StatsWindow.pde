@@ -17,18 +17,18 @@ class StatsWindow extends PApplet {
     textAlign(CENTER, CENTER);
     fill(255);
 
-    if (chickensAlive != null) {
+    if (amountOfChickensSaved != null && amountOfChickensToSpawn != null) {
       textSize(16);
-      text("Chickens Alive:", width/2, height*0.15);
+      text("Chickens Saved:", width/2, height*0.15);
       textSize(32);
-      text(chickensAlive, width/2, height * 0.35);
+      text(amountOfChickensSaved + "/" + amountOfChickensToSpawn, width/2, height * 0.35);
     }
 
-    if (timeSinceSceneStart != null) {
+    if (timeSinceSaveStart != null) {
       textSize(16);
       text("Time Spent:", width/2, height*0.6);
       textSize(32);
-      text(timeSinceSceneStart, width/2, height * 0.8);
+      text(timeSinceSaveStart, width/2, height * 0.8);
     }
   }
 
