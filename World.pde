@@ -72,6 +72,12 @@ class World implements Scene {
     }
   }
 
+  void attemptShootFoxAt(PVector pos) {
+    if (pos.dist(fox.pos) < 32) {
+      gameState.nextScene();
+    }
+  }
+
 
   void update() {
     for (Chicken chicken : chickens) {

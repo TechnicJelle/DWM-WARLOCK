@@ -22,7 +22,7 @@ class Scene_InGame implements Scene {
     score = 0;
     timeSinceSceneStart = 0f;
 
-    playState = PlayState.KILL;
+    playState = PlayState.INTRO;
 
     getSurface().setAlwaysOnTop(false);
 
@@ -263,7 +263,7 @@ class Scene_InGame implements Scene {
       noFill();
       stroke(RED);
       strokeWeight(2);
-      circle(width/2, height/2, 22);
+      circle(width/2, height/2, netIsDown ? 16 : 22);
       line(width/2 - 5, height/2, width/2 - 17, height/2); //left
       line(width/2, height/2 - 5, width/2, height/2 - 17); //top
       line(width/2 + 5, height/2, width/2 + 17, height/2); //right
@@ -276,7 +276,17 @@ class Scene_InGame implements Scene {
     if (key == ' ') {
       netIsDown = true;
       PVector screenSize = new PVector(width/2, height/2);
-      world.attemptCatchChickenAt(windowDragger.getWinPos().add(screenSize));
+      PVector screenCenter = windowDragger.getWinPos().add(screenSize);
+      switch(playState) {
+      case INTRO:
+        break;
+      case SAVE:
+        world.attemptCatchChickenAt(screenCenter);
+        break;
+      case KILL:
+        world.attemptShootFoxAt(screenCenter);
+        break;
+      }
     }
   }
 
@@ -287,9 +297,9 @@ class Scene_InGame implements Scene {
   }
 
   void mousePressed() {
-    if (mouseButton == RIGHT) {
-      gameState.nextScene();
-    }
+    //if (mouseButton == RIGHT) {
+    //  gameState.nextScene();
+    //}
 
     mouseDownPos = windowDragger.getScreenMouse();
   }
