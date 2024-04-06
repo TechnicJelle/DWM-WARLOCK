@@ -73,11 +73,6 @@ class Scene_InGame implements Scene {
     } else {
       windowDragger.clickDragWindow();
     }
-
-    if (random(200) < 1) {
-      score++;
-      println("bumped score to ", score);
-    }
   }
 
   void render() {
