@@ -13,7 +13,7 @@ class Scene_Score implements Scene {
 
     textSize(128);
     fill(255);
-    text("1234", width/2f, height*0.5);
+    text(score, width/2f, height*0.5);
 
     textSize(32);
     fill(128);
@@ -23,10 +23,10 @@ class Scene_Score implements Scene {
   void mousePressed() {
     gameState.nextScene();
   }
-  
+
   void mouseDragged() {
   }
-  
+
   void mouseReleased() {
   }
 
