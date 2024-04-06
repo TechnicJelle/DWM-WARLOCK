@@ -5,8 +5,8 @@ enum ChickenState {
 class Chicken extends Animal {
   ChickenState state = ChickenState.IDLE;
 
-  Chicken(PVector pPos, float pMoveSpeed) {
-    super(pPos, pMoveSpeed);
+  Chicken(PVector worldSize, PVector pPos, float pMoveSpeed) {
+    super(worldSize, pPos, pMoveSpeed);
   }
 
   void caught() {
@@ -32,25 +32,25 @@ class Chicken extends Animal {
     }
   }
 
-  void render() {
-    rectMode(CENTER);
-    fill(color(255));
-    rect(pos.x, pos.y, 15, 20);
+  void render(PGraphics canvas) {
+    canvas.rectMode(CENTER);
+    canvas.fill(color(255));
+    canvas.rect(pos.x, pos.y, 15, 20);
 
-    rectMode(CENTER);
-    fill(color(255, 0, 0));
-    rect(pos.x, pos.y-10, 5, 8);
+    canvas.rectMode(CENTER);
+    canvas.fill(color(255, 0, 0));
+    canvas.rect(pos.x, pos.y-10, 5, 8);
 
-    rectMode(CENTER);
-    fill(color(255, 255, 0));
-    rect(pos.x-8, pos.y-2, 6, 4);
+    canvas.rectMode(CENTER);
+    canvas.fill(color(255, 255, 0));
+    canvas.rect(pos.x-8, pos.y-2, 6, 4);
 
-    rectMode(CENTER);
-    fill(color(255, 255, 0));
-    rect(pos.x-3, pos.y+12, 3, 4);
+    canvas.rectMode(CENTER);
+    canvas.fill(color(255, 255, 0));
+    canvas.rect(pos.x-3, pos.y+12, 3, 4);
 
-    rectMode(CENTER);
-    fill(color(255, 255, 0));
-    rect(pos.x+3, pos.y+12, 3, 4);
+    canvas.rectMode(CENTER);
+    canvas.fill(color(255, 255, 0));
+    canvas.rect(pos.x+3, pos.y+12, 3, 4);
   }
 }

@@ -5,12 +5,28 @@ class World {
   PGraphics background;
   PGraphics canvas;
 
+  ArrayList<Chicken> chickens;
+  int amountOfChickensToSpawn = 10;
+  Fox fox;
+
   World() {
     Width = displayWidth;
     Height = displayHeight;
     canvas = createGraphics(Width, Height);
     background = createGraphics(Width, Height);
+    drawBackground();
 
+    PVector worldSize = new PVector(Width, Height);
+    chickens = new ArrayList<Chicken>();
+    for (int i = 0; i < amountOfChickensToSpawn; i++) {
+      PVector pos = new PVector(random(Width), random(Height));
+      chickens.add(new Chicken(worldSize, pos, random(5, 10)));
+    }
+    PVector pos = new PVector(random(Width), random(Height));
+    fox = new Fox(worldSize, pos, 10, chickens);
+  }
+
+  void drawBackground() {
     background.beginDraw();
     background.background(0);
     for (int clumps = 0; clumps < 200; clumps++) {
@@ -32,6 +48,14 @@ class World {
     canvas.image(background, 0, 0);
     //Draw stuff in the world here (on the canvas) -->
 
+    //move this rendering and updating to World class later
+    for (Chicken chicken : chickens) {
+      chicken.update();
+      chicken.render(canvas);
+    }
+
+    fox.update();
+    fox.render(canvas);
 
     //<-- Draw stuff in the world here (on the canvas)
     canvas.endDraw();

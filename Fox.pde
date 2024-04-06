@@ -7,8 +7,8 @@ class Fox extends Animal {
 
   ArrayList<Chicken> chickens;
 
-  Fox(PVector pPos, float pMoveSpeed, ArrayList<Chicken> pChickens) {
-    super(pPos, pMoveSpeed);
+  Fox(PVector worldSize, PVector pPos, float pMoveSpeed, ArrayList<Chicken> pChickens) {
+    super(worldSize, pPos, pMoveSpeed);
     chickens = pChickens;
   }
 
@@ -50,17 +50,17 @@ class Fox extends Animal {
     }
   }
 
-  void render() {
-    rectMode(CENTER);
-    fill(color(255, 160, 0));
-    rect(pos.x, pos.y, 25, 10);
+  void render(PGraphics canvas) {
+    canvas.rectMode(CENTER);
+    canvas.fill(color(255, 160, 0));
+    canvas.rect(pos.x, pos.y, 25, 10);
 
-    rectMode(CENTER);
-    fill(color(255));
-    rect(pos.x+14, pos.y-1, 9, 5);
+    canvas.rectMode(CENTER);
+    canvas.fill(color(255));
+    canvas.rect(pos.x+14, pos.y-1, 9, 5);
 
-    rectMode(CENTER);
-    fill(color(250, 170, 0));
-    rect(pos.x-13, pos.y-3, 9, 9);
+    canvas.rectMode(CENTER);
+    canvas.fill(color(250, 170, 0));
+    canvas.rect(pos.x-13, pos.y-3, 9, 9);
   }
 }
