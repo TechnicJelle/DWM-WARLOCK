@@ -31,6 +31,8 @@ class Fox extends Animal {
       }
     }
 
+    if (distance > sq(256)) return Optional.empty(); //how far the fox can see 
+
     return Optional.of(closest);
   }
 
@@ -51,7 +53,11 @@ class Fox extends Animal {
       break;
     case HUNTING:
       Chicken c = potentiallyClosestChicken.get();
-      moveDir = PVector.sub(c.pos, pos).normalize();
+      PVector diff = PVector.sub(c.pos, pos);
+      if (diff.mag() < 32) {
+        chickens.remove(c);
+      }
+      moveDir = diff.normalize();
       move();
       break;
     }
