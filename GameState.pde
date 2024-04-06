@@ -14,6 +14,7 @@ class GameState {
   List<Scene> internalScenes;
   int currentScene;
   int defaultScene;
+  boolean goToNextScene = false;
 
   GameState(int defaultScene, Scene... scenes) {
     internalScenes = List.of(scenes);
@@ -27,10 +28,21 @@ class GameState {
   }
 
   void updateCurrentScene() {
+    if (goToNextScene) return;
     getCurrentScene().update();
   }
 
   void renderCurrentScene() {
+    if (goToNextScene) {
+      goToNextScene = false;
+      getCurrentScene().cleanup();
+      currentScene++;
+      if (currentScene > internalScenes.size()-1)
+        currentScene = defaultScene;
+
+      getCurrentScene().init();
+      return;
+    }
     getCurrentScene().render();
   }
 
@@ -47,11 +59,6 @@ class GameState {
   }
 
   void nextScene() {
-    getCurrentScene().cleanup();
-    currentScene++;
-    if (currentScene > internalScenes.size()-1)
-      currentScene = defaultScene;
-
-    getCurrentScene().init();
+    goToNextScene = true;
   }
 }
