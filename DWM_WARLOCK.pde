@@ -1,5 +1,7 @@
 WindowDragger windowDragger;
 GameState gameState;
+
+PFont OCRA;
 StatsWindow statsWindow;
 
 final int WIDTH = 1280;
@@ -13,6 +15,8 @@ void settings() {
 }
 
 void setup() {
+  OCRA = createFont("OCRA.ttf", 24);
+  textFont(OCRA);
   //Set the start position of the window here (in screen pixels)
   windowDragger = new WindowDragger(displayWidth/2 - width/2, displayHeight/2 - height/2);
 
