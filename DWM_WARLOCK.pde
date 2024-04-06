@@ -8,9 +8,10 @@ final int WIDTH = 1280;
 final int HEIGHT = 720;
 void settings() {
   if (isWindows()) {
-    size(WIDTH, HEIGHT, P2D);
+    size(WIDTH,HEIGHT);
   } else {
-    size(WIDTH, HEIGHT);
+    //fullScreen();
+    size(WIDTH,HEIGHT);
   }
 }
 

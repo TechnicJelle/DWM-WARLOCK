@@ -82,11 +82,156 @@ class Scene_InGame implements Scene {
       text("Do not grab the window by the top bar!", width/2, height*0.9);
     } else {
       if (netIsDown) {
-        fill(125);
+        //////////////////NET TEST
+        pushMatrix();
+        translate(width/2-36, height/2-22);
+        strokeWeight(1);
+        noFill();
+        scale(2);
+
+        //net outline
+        stroke(WHITE);
+        beginShape();
+        vertex(18, 0);
+        vertex(16, 2);
+        vertex(14, 6);
+        vertex(13, 11);
+        vertex(13, 12);
+        vertex(14, 13);
+        vertex(17, 14);
+        vertex(21, 14);
+        vertex(24, 13);
+        vertex(25, 12);
+        vertex(25, 11);
+        vertex(24, 6);
+        vertex(22, 2);
+        vertex(20, 0);
+        endShape(CLOSE);
+
+        //netlines
+        beginShape();
+        vertex(17, 1);
+        vertex(24, 8);
+        vertex(18, 14);
+        endShape();
+        beginShape();
+        vertex(21, 1);
+        vertex(14, 8);
+        vertex(20, 14);
+        endShape();
+        beginShape();
+        vertex(15, 4);
+        vertex(24, 13);
+        endShape();
+        beginShape();
+        vertex(23, 4);
+        vertex(14, 13);
+        endShape();
+
+        //hilt
+        beginShape();
+        vertex(12, 11);
+        vertex(12, 13);
+        vertex(14, 13);
+        vertex(13, 11);
+        endShape(CLOSE);
+
+        //stick
+        beginShape();
+        vertex(0, 12);
+        vertex(13, 12);
+        endShape();
+
+        popMatrix();
       } else {
-        fill(255);
+        pushMatrix();
+        translate(width/2-41, height/2-47);
+        strokeWeight(1);
+        noFill();
+        scale(2);
+
+        //netring
+        stroke(WHITE);
+        beginShape();
+        vertex(10, 14);
+        vertex(10, 16);
+        vertex(11, 17);
+        vertex(13, 17);
+        vertex(16, 15);
+        vertex(18, 13);
+        vertex(20, 10);
+        vertex(20, 8);
+        vertex(19, 7);
+        vertex(17, 7);
+        vertex(14, 9);
+        vertex(12, 11);
+        endShape(CLOSE);
+
+        //net outer
+        beginShape();
+        vertex(10, 16);
+        vertex(8, 14);
+        vertex(4, 9);
+        vertex(1, 8);
+        vertex(0, 5);
+        vertex(1, 2);
+        vertex(4, 0);
+        vertex(9, 0);
+        vertex(13, 1);
+        vertex(19, 7);
+        endShape();
+
+        //net horizontal line #1
+        beginShape();
+        vertex(1, 3);
+        vertex(15, 3);
+        endShape();
+        //net horizontal line #2
+        beginShape();
+        vertex(1, 7);
+        vertex(17, 7);
+        endShape();
+        //net horizontal line #3
+        beginShape();
+        vertex(6, 11);
+        vertex(12, 11);
+        endShape();
+        //net vertical line #1
+        beginShape();
+        vertex(4, 0);
+        vertex(4, 9);
+        endShape();
+        //net vertical line #2
+        beginShape();
+        vertex(8, 0);
+        vertex(8, 14);
+        endShape();
+        //net vertical line #3
+        beginShape();
+        vertex(12, 1);
+        vertex(12, 11);
+        endShape();
+        //net vertical line #4
+        beginShape();
+        vertex(16, 4);
+        vertex(16, 7);
+        endShape();
+
+        //hilt
+        beginShape();
+        vertex(9, 16);
+        vertex(10, 17);
+        vertex(11, 17);
+        endShape();
+
+        //stick
+        beginShape();
+        vertex(10, 15);
+        vertex(1, 25);
+        endShape();
+
+        popMatrix();
       }
-      circle(width/2, height/2, 32);
     }
   }
 
