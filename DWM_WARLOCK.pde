@@ -8,10 +8,8 @@ void settings() {
 }
 
 void setup() {
-
   //Set the start position of the window here (in screen pixels)
   windowDragger = new WindowDragger(displayWidth/2 - width/2, displayHeight/2 - height/2);
-  windowDragger.clickDragWindow();
 
   gameState = new GameState(1,
     new Scene_Startup(),
@@ -39,7 +37,6 @@ void mouseDragged() {
 void mouseReleased() {
   gameState.mouseReleasedCurrentScene();
 }
-
 
 void drawDebugDot(PVector v) {
   drawDebugDot(v.x, v.y);

@@ -8,20 +8,20 @@ class WindowDragger {
   private PVector grabPoint = null;
 
   //Set the start position of the window here (in screen pixels)
-  public WindowDragger(int x, int y) {
+  WindowDragger(int x, int y) {
     this.pApplet = null;
     this.winPos = new PVector(x, y);
   }
 
   //Pass in `this` in case you have a specific PApplet you want this WindowDragger to bind to.
   //Set the start position of the window here (in screen pixels)
-  public WindowDragger(PApplet pApplet, int x, int y) {
+  WindowDragger(PApplet pApplet, int x, int y) {
     this.pApplet = pApplet;
     this.winPos = new PVector(x, y);
   }
 
   //Queue window for moving along with the cursor.
-  public void clickDragWindow() {
+  void clickDragWindow() {
     if (pApplet == null ? mousePressed : pApplet.mousePressed) {
       PVector sm = getScreenMouse();
       if (grabPoint == null) {
@@ -35,8 +35,18 @@ class WindowDragger {
     }
   }
 
+  //Queue window for being set to a display position (in screen pixels)
+  void setWindowPos(int x, int y) {
+    winPos.set(x, y);
+  }
+
+  //Queue window for centering.
+  void centerWindow() {
+    winPos.set(displayWidth/2 - width/2, displayHeight/2 - height/2);
+  }
+
   //Call at end of frame.
-  private void applyWindowPos() {
+  void applyWindowPos() {
     if (pApplet == null) {
       surface.setLocation(int(winPos.x), int(winPos.y));
     } else {
@@ -44,19 +54,11 @@ class WindowDragger {
     }
   }
 
-  public void setWindowPos(int x, int y) {
-    winPos.set(x, y);
-  }
-
-  //Queue window for centering.
-  public void centerWindow() {
-    winPos.set(displayWidth/2 - width/2, displayHeight/2 - height/2);
-  }
-
-  public PVector getWinPos() {
+  PVector getWinPos() {
     return winPos.copy();
   }
-  public PVector getScreenMouse() {
+
+  PVector getScreenMouse() {
     Point p = MouseInfo.getPointerInfo().getLocation();
     return new PVector(p.x, p.y);
   }

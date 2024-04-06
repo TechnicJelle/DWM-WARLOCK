@@ -30,6 +30,7 @@ class Scene_InGame implements Scene {
 
       //calculations:
       float timeSinceSceneStart = (millis() - startMillis) / 1000f; //in seconds
+      timeSinceSceneStart += + period/2f; //make the animation start at a rest point, instead of immediately starting with a bounce
       float repeater = timeSinceSceneStart % period;
       float offset = bounceMagnitude * exp(-decay * repeater) * sin(frequency * repeater);
       float threshold = (timeSinceSceneStart % period) - ((cycleCutoff * PI) / frequency);
