@@ -23,10 +23,9 @@ class Scene_InGame implements Scene {
 
     world = new World();
 
-    windowResize(400, 400);
-    delay(300);
+    sizeToResizeTo = new PVector(400, 400);
 
-    windowDragger.centerWindow();
+    windowDragger.setWindowPos(displayWidth/2 - int(sizeToResizeTo.x)/2, displayHeight/2 - int(sizeToResizeTo.y)/2);
     windowStartedPos = windowDragger.getWinPos();
     windowHasNotBeenMovedYet = true;
     mouseDownPos = windowDragger.getScreenMouse();
@@ -125,11 +124,7 @@ class Scene_InGame implements Scene {
   void cleanup() {
     world.cleanup();
     statsWindow.getSurface().setVisible(false);
-    windowResize(WIDTH, HEIGHT);
-    if (!isWindows()) {
-      delay(300);
-    }
-    windowDragger.centerWindow();
+    sizeToResizeTo = new PVector(WIDTH, HEIGHT);
     timeSinceSceneStart = null;
   }
 }
