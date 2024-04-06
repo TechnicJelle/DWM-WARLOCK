@@ -7,6 +7,8 @@ class Chicken extends Animal {
 
   Chicken(PVector worldSize, PVector pPos, float pMoveSpeed) {
     super(worldSize, pPos, pMoveSpeed);
+    state = ChickenState.EXPLORING;
+    activate();
   }
 
   void caught() {
@@ -14,12 +16,6 @@ class Chicken extends Animal {
 
   void update() {
     super.update();
-    if (keyPressed) {
-      if (key == ' ') {
-        state = ChickenState.EXPLORING;
-        activate();
-      }
-    }
 
     switch(state) {
     case IDLE:

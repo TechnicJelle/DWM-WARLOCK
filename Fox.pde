@@ -10,6 +10,8 @@ class Fox extends Animal {
   Fox(PVector worldSize, PVector pPos, float pMoveSpeed, ArrayList<Chicken> pChickens) {
     super(worldSize, pPos, pMoveSpeed);
     chickens = pChickens;
+    state = FoxState.HUNTING;
+    activate();
   }
 
   Chicken getClosestChicken() {
@@ -30,12 +32,6 @@ class Fox extends Animal {
 
   void update() {
     super.update();
-    if (keyPressed) {
-      if (key == ' ') {
-        state = FoxState.HUNTING;
-        activate();
-      }
-    }
 
     switch(state) {
     case IDLE:
