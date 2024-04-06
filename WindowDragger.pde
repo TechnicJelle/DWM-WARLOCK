@@ -7,14 +7,10 @@ class WindowDragger {
   private PVector winPos;
   private PVector grabPoint = null;
 
-  private int startPosX, startPosY;
-
   //Set the start position of the window here (in screen pixels)
   public WindowDragger(int x, int y) {
     this.pApplet = null;
     this.winPos = new PVector(x, y);
-    startPosX = x;
-    startPosY = y;
   }
 
   //Pass in `this` in case you have a specific PApplet you want this WindowDragger to bind to.
@@ -54,7 +50,7 @@ class WindowDragger {
 
   //Queue window for centering.
   public void centerWindow() {
-    winPos.set(startPosX, startPosY);
+    winPos.set(displayWidth/2 - width/2, displayHeight/2 - height/2);
   }
 
   public PVector getWinPos() {

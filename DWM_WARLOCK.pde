@@ -1,8 +1,13 @@
 WindowDragger windowDragger;
 GameState gameState;
 
+final int WIDTH = 1280;
+final int HEIGHT = 720;
+void settings() {
+  size(WIDTH, HEIGHT);
+}
+
 void setup() {
-  size(1280, 720);
 
   //Set the start position of the window here (in screen pixels)
   windowDragger = new WindowDragger(displayWidth/2 - width/2, displayHeight/2 - height/2);

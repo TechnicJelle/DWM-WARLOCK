@@ -1,30 +1,14 @@
 class Scene_InGame implements Scene {
-  PGraphics worldBackground;
   PVector windowStartedPos;
   int startMillis;
   boolean windowHasNotBeenMovedYet;
   PVector mouseDownPos;
-
-  Scene_InGame() {
-    worldBackground = createGraphics(displayWidth, displayHeight);
-  }
+  World world;
 
   void init() {
-    worldBackground.beginDraw();
-    worldBackground.background(0);
-    for (int clumps = 0; clumps < 200; clumps++) {
-      PVector clumpPos = new PVector(random(0, worldBackground.width), random(0, worldBackground.height));
-      for (int blade = 0; blade < random(2, 3); blade++) {
-        PVector bladeDir = PVector.fromAngle(PI + HALF_PI + random(-QUARTER_PI, QUARTER_PI)); // random angle like:  \|/
-        bladeDir.mult(random(5, 10)); //length of the blade
-        PVector bladeEnd = PVector.add(clumpPos, bladeDir);
-        worldBackground.stroke(GREEN);
-        worldBackground.strokeWeight(1);
-        worldBackground.line(clumpPos.x /*+ random(-5, 5)*/, clumpPos.y/* + random(-2, 2)*/, bladeEnd.x, bladeEnd.y);
-      }
-    }
-    worldBackground.endDraw();
-
+    world = new World();
+    windowResize(700, 700);
+    windowDragger.centerWindow();
     windowStartedPos = windowDragger.getWinPos();
     windowHasNotBeenMovedYet = true;
     mouseDownPos = windowDragger.getScreenMouse();
@@ -59,8 +43,9 @@ class Scene_InGame implements Scene {
   }
 
   void render() {
+    world.render();
     PVector winPos = windowDragger.getWinPos();
-    image(worldBackground, -winPos.x, -winPos.y);
+    image(world.canvas, -winPos.x, -winPos.y);
   }
 
   void mousePressed() {
@@ -82,6 +67,7 @@ class Scene_InGame implements Scene {
   }
 
   void cleanup() {
+    windowResize(WIDTH, HEIGHT);
     windowDragger.centerWindow();
   }
 }
