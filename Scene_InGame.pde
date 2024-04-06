@@ -18,9 +18,6 @@ class Scene_InGame implements Scene {
   void update() {
     //Wiggle the window if it hasn't been moved yet, to show the user they can move it themselves.
     if (windowHasNotBeenMovedYet) {
-      //well this does work. but it's not good enough.
-      //users will accidentally click something and not realise it moved the window by (0,0) pixels
-
       //designer values:
       float frequency = 9.51; //how ADHD it is
       float decay = 2.34; //damping (how fast it decays)
@@ -47,6 +44,15 @@ class Scene_InGame implements Scene {
     world.render();
     PVector winPos = windowDragger.getWinPos();
     image(world.canvas, -winPos.x, -winPos.y);
+
+    if (windowHasNotBeenMovedYet) {
+      fill(WHITE);
+      textSize(32);
+      text("↑\nMove the window\n←  by clicking and dragging  →\nanywhere inside\n↓", width/2, height/2);
+
+      textSize(16);
+      text("Do not grab the window by the top bar!", width/2, height*0.9);
+    }
   }
 
   void mousePressed() {
