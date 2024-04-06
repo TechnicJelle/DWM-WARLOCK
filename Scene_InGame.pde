@@ -83,7 +83,6 @@ class Scene_InGame implements Scene {
     switch(playState) {
     case INTRO:
       if (!windowHasNotBeenMovedYet) {
-        println("next state!");
         playState = PlayState.SAVE;
         timeSinceSaveStart = 0f;
         saveStartMillis = millis();
@@ -251,7 +250,6 @@ class Scene_InGame implements Scene {
       }
       if (world.chickens.isEmpty()) {
         playState = PlayState.KILL;
-        println("K I L L !");
       }
       break;
     case KILL:

@@ -38,7 +38,6 @@ class World implements Scene {
   }
 
   void spawnFox() {
-    println("let the fox loose!");
     PVector worldSize = new PVector(Width, Height);
     PVector pos = new PVector(random(Width), random(Height));
     fox = new Fox(worldSize, pos, 10, chickens);
