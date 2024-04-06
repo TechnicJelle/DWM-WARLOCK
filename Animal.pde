@@ -1,11 +1,12 @@
 abstract class Animal {
-  PVector pos, target, moveDir = new PVector(0, 0);
+  PVector pos, worldSize, target, moveDir = new PVector(0, 0);
   float moveSpeed = 0f;
   int ticSpeed, ticCounter = 0;
 
-  Animal(PVector pos, float moveSpeed) {
+  Animal(PVector worldSize, PVector pos, float moveSpeed) {
     this.pos = pos;
     this.moveSpeed = moveSpeed;
+    this.worldSize = worldSize;
   }
 
   void bounceOffBorders() {
@@ -14,10 +15,9 @@ abstract class Animal {
       pos.x = 0; //clamp
     }
 
-    //TODO: Switch to world width later
-    if (pos.x >= width) {
+    if (pos.x >= worldSize.x) {
       moveDir.x = -moveDir.x;
-      pos.x = width; //clamp
+      pos.x = worldSize.x; //clamp
     }
 
     if (pos.y <= 0) {
@@ -25,10 +25,9 @@ abstract class Animal {
       pos.y = 0; //clamp
     }
 
-    //TODO: Switch to world height later
-    if (pos.y >= height) {
+    if (pos.y >= worldSize.y) {
       moveDir.y = -moveDir.y;
-      pos.y = height; //clamp
+      pos.y = worldSize.y; //clamp
     }
   }
 
@@ -54,5 +53,5 @@ abstract class Animal {
     bounceOffBorders();
   }
 
-  abstract void render();
+  abstract void render(PGraphics canvas);
 }

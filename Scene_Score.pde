@@ -20,8 +20,14 @@ class Scene_Score implements Scene {
     text("Click anywhere to go back to the main menu", width/2f, height*0.8);
   }
 
-  void mouseClicked() {
+  void mousePressed() {
     gameState.nextScene();
+  }
+  
+  void mouseDragged() {
+  }
+  
+  void mouseReleased() {
   }
 
   void cleanup() {

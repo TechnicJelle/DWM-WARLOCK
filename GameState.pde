@@ -4,7 +4,9 @@ interface Scene {
   void init();
   void update();
   void render();
-  void mouseClicked();
+  void mousePressed();
+  void mouseDragged();
+  void mouseReleased();
   void cleanup();
 }
 
@@ -12,6 +14,7 @@ class GameState {
   List<Scene> internalScenes;
   int currentScene;
   int defaultScene;
+  boolean goToNextScene = false;
 
   GameState(int defaultScene, Scene... scenes) {
     internalScenes = List.of(scenes);
@@ -25,23 +28,37 @@ class GameState {
   }
 
   void updateCurrentScene() {
+    if (goToNextScene) return;
     getCurrentScene().update();
   }
 
   void renderCurrentScene() {
+    if (goToNextScene) {
+      goToNextScene = false;
+      getCurrentScene().cleanup();
+      currentScene++;
+      if (currentScene > internalScenes.size()-1)
+        currentScene = defaultScene;
+
+      getCurrentScene().init();
+      return;
+    }
     getCurrentScene().render();
   }
 
-  void mouseClickedCurrentScene() {
-    getCurrentScene().mouseClicked();
+  void mousePressedCurrentScene() {
+    getCurrentScene().mousePressed();
+  }
+
+  void mouseDraggedCurrentScene() {
+    getCurrentScene().mouseDragged();
+  }
+
+  void mouseReleasedCurrentScene() {
+    getCurrentScene().mouseReleased();
   }
 
   void nextScene() {
-    getCurrentScene().cleanup();
-    currentScene++;
-    if (currentScene > internalScenes.size()-1)
-      currentScene = defaultScene;
-
-    getCurrentScene().init();
+    goToNextScene = true;
   }
 }
