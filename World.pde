@@ -11,6 +11,8 @@ class World implements Scene {
   int amountOfChickensToSpawn;
   Fox fox;
 
+  ArrayList<InWorldPopup> popups;
+
   World() {
     Width = displayWidth;
     Height = displayHeight;
@@ -29,6 +31,8 @@ class World implements Scene {
     }
     PVector pos = new PVector(random(Width), random(Height));
     fox = new Fox(worldSize, pos, 10, chickens);
+
+    popups = new ArrayList<InWorldPopup>();
   }
 
   void init() {
@@ -57,6 +61,7 @@ class World implements Scene {
       if (pos.dist(c.pos) < 32) {
         println("found a chicken!");
         chickens.remove(i);
+        popups.add(new InWorldPopup(c.pos, "Caught!", 2));
         return;
       }
     }
@@ -71,6 +76,14 @@ class World implements Scene {
     fox.update();
 
     chickensAlive = chickens.size();
+
+    for (int i = popups.size()-1; i >= 0; i--) {
+      popups.get(i).update();
+      if (popups.get(i).expired) {
+        popups.remove(i);
+        println("removed popup ", i);
+      }
+    }
   }
 
 
@@ -84,6 +97,10 @@ class World implements Scene {
     }
 
     fox.render(canvas);
+
+    for (InWorldPopup popup : popups) {
+      popup.render(canvas);
+    }
 
     //<-- Draw stuff in the world here (on the canvas)
     canvas.endDraw();
