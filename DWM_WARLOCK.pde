@@ -4,7 +4,7 @@ GameState gameState;
 final int WIDTH = 1280;
 final int HEIGHT = 720;
 void settings() {
-  size(WIDTH, HEIGHT);
+  size(WIDTH, HEIGHT, P2D);
 }
 
 void setup() {
