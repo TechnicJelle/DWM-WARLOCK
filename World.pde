@@ -29,14 +29,20 @@ class World implements Scene {
       PVector pos = new PVector(random(Width), random(Height));
       chickens.add(new Chicken(worldSize, pos, random(5, 10)));
     }
-    PVector pos = new PVector(random(Width), random(Height));
-    fox = new Fox(worldSize, pos, 10, chickens);
 
     popups = new ArrayList<InWorldPopup>();
   }
 
   void init() {
   }
+
+  void spawnFox() {
+    println("let the fox loose!");
+    PVector worldSize = new PVector(Width, Height);
+    PVector pos = new PVector(random(Width), random(Height));
+    fox = new Fox(worldSize, pos, 10, chickens);
+  }
+
 
   void drawBackground() {
     background.beginDraw();
@@ -72,7 +78,8 @@ class World implements Scene {
       chicken.update();
     }
 
-    fox.update();
+    if (fox != null)
+      fox.update();
 
     chickensAlive = chickens.size();
 
@@ -94,7 +101,8 @@ class World implements Scene {
       chicken.render(canvas);
     }
 
-    fox.render(canvas);
+    if (fox != null)
+      fox.render(canvas);
 
     for (InWorldPopup popup : popups) {
       popup.render(canvas);
