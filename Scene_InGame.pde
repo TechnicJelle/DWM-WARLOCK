@@ -8,6 +8,8 @@ class Scene_InGame implements Scene {
   PVector mouseDownPos;
   World world;
 
+  boolean netIsDown;
+
   void init() {
     score = 0;
     timeSinceSceneStart = 0f;
@@ -29,6 +31,8 @@ class Scene_InGame implements Scene {
     windowHasNotBeenMovedYet = true;
     mouseDownPos = windowDragger.getScreenMouse();
     startMillis = millis();
+
+    netIsDown = false;
   }
 
   void update() {
@@ -76,6 +80,27 @@ class Scene_InGame implements Scene {
 
       textSize(16);
       text("Do not grab the window by the top bar!", width/2, height*0.9);
+    } else {
+      if (netIsDown) {
+        fill(125);
+      } else {
+        fill(255);
+      }
+      circle(width/2, height/2, 32);
+    }
+  }
+
+  void keyPressed() {
+    if (key == ' ') {
+      netIsDown = true;
+      PVector screenSize = new PVector(width/2, height/2);
+      world.attemptCatchChickenAt(windowDragger.getWinPos().add(screenSize));
+    }
+  }
+
+  void keyReleased() {
+    if (key == ' ') {
+      netIsDown = false;
     }
   }
 

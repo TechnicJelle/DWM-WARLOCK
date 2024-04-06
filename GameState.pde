@@ -7,6 +7,8 @@ interface Scene {
   void mousePressed();
   void mouseDragged();
   void mouseReleased();
+  void keyPressed();
+  void keyReleased();
   void cleanup();
 }
 
@@ -56,6 +58,14 @@ class GameState {
 
   void mouseReleasedCurrentScene() {
     getCurrentScene().mouseReleased();
+  }
+
+  void keyPressedCurrentScene() {
+    getCurrentScene().keyPressed();
+  }
+
+  void keyReleasedCurrentScene() {
+    getCurrentScene().keyReleased();
   }
 
   void nextScene() {

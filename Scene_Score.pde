@@ -30,6 +30,12 @@ class Scene_Score implements Scene {
   void mouseReleased() {
   }
 
+  void keyPressed() {
+  }
+
+  void keyReleased() {
+  }
+
   void cleanup() {
   }
 }

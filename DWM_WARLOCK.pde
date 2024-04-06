@@ -53,6 +53,14 @@ void mouseReleased() {
   gameState.mouseReleasedCurrentScene();
 }
 
+void keyPressed() {
+  gameState.keyPressedCurrentScene();
+}
+
+void keyReleased() {
+  gameState.keyReleasedCurrentScene();
+}
+
 boolean isWindows() {
   String os = System.getProperty("os.name").toLowerCase();
   return os.contains("windows");

@@ -1,3 +1,5 @@
+import java.util.Optional;
+
 enum FoxState {
   IDLE, EXPLORING, HUNTING
 };
@@ -14,7 +16,9 @@ class Fox extends Animal {
     activate();
   }
 
-  Chicken getClosestChicken() {
+  Optional<Chicken> getClosestChicken() {
+    if (chickens.isEmpty()) return Optional.empty();
+
     Chicken closest = chickens.get(0);
     float distance = Float.MAX_VALUE;
 
@@ -27,11 +31,17 @@ class Fox extends Animal {
       }
     }
 
-    return closest;
+    return Optional.of(closest);
   }
 
   void update() {
     super.update();
+    Optional<Chicken> potentiallyClosestChicken = getClosestChicken();
+    if (potentiallyClosestChicken.isPresent()) {
+      state = FoxState.HUNTING;
+    } else {
+      state = FoxState.EXPLORING;
+    }
 
     switch(state) {
     case IDLE:
@@ -40,7 +50,8 @@ class Fox extends Animal {
       explore();
       break;
     case HUNTING:
-      moveDir = PVector.sub(getClosestChicken().pos, pos).normalize();
+      Chicken c = potentiallyClosestChicken.get();
+      moveDir = PVector.sub(c.pos, pos).normalize();
       move();
       break;
     }
@@ -55,7 +66,7 @@ class Fox extends Animal {
     canvas.noFill();
 
     canvas.pushMatrix();
-    canvas.translate(pos.x-2,pos.y-40);
+    canvas.translate(pos.x-2, pos.y-40);
     canvas.scale(2);
 
     //backfill

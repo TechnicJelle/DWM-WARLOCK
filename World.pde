@@ -51,6 +51,18 @@ class World implements Scene {
     background.endDraw();
   }
 
+  void attemptCatchChickenAt(PVector pos) {
+    for (int i = chickens.size()-1; i >= 0; i--) {
+      Chicken c = chickens.get(i);
+      if (pos.dist(c.pos) < 32) {
+        println("found a chicken!");
+        chickens.remove(i);
+        return;
+      }
+    }
+  }
+
+
   void update() {
     for (Chicken chicken : chickens) {
       chicken.update();
@@ -88,5 +100,11 @@ class World implements Scene {
   }
 
   void mouseReleased() {
+  }
+
+  void keyPressed() {
+  }
+
+  void keyReleased() {
   }
 }

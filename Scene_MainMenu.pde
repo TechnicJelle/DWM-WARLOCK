@@ -26,6 +26,12 @@ class Scene_MainMenu implements Scene {
   void mouseReleased() {
   }
 
+  void keyPressed() {
+  }
+
+  void keyReleased() {
+  }
+
   void cleanup() {
   }
 }

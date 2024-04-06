@@ -33,6 +33,12 @@ class Scene_Startup implements Scene {
   void mouseReleased() {
   }
 
+  void keyPressed() {
+  }
+
+  void keyReleased() {
+  }
+
   void cleanup() {
   }
 }
