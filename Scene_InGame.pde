@@ -7,7 +7,7 @@ class Scene_InGame implements Scene {
 
   void init() {
     world = new World();
-    windowResize(700, 700);
+    windowResize(400, 400);
     windowDragger.centerWindow();
     windowStartedPos = windowDragger.getWinPos();
     windowHasNotBeenMovedYet = true;
@@ -47,7 +47,7 @@ class Scene_InGame implements Scene {
 
     if (windowHasNotBeenMovedYet) {
       fill(WHITE);
-      textSize(32);
+      textSize(20);
       text("↑\nMove the window\n←  by clicking and dragging  →\nanywhere inside\n↓", width/2, height/2);
 
       textSize(16);

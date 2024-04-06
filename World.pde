@@ -28,7 +28,7 @@ class World {
 
   void drawBackground() {
     background.beginDraw();
-    background.background(0);
+    background.background(BLACK);
     for (int clumps = 0; clumps < 200; clumps++) {
       PVector clumpPos = new PVector(random(0, Width), random(0, Height));
       for (int blade = 0; blade < random(2, 3); blade++) {
