@@ -75,9 +75,7 @@ class Scene_InGame implements Scene {
 
   void cleanup() {
     windowResize(WIDTH, HEIGHT);
-    String os = System.getProperty("os.name").toLowerCase();
-    if (os.contains("windows")) {
-    } else {
+    if (!isWindows()) {
       delay(300);
     }
     windowDragger.centerWindow();
