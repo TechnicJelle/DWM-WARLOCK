@@ -1,3 +1,6 @@
+Integer score;
+Float timeSinceSceneStart;
+
 class Scene_InGame implements Scene {
   PVector windowStartedPos;
   int startMillis;
@@ -6,8 +9,21 @@ class Scene_InGame implements Scene {
   World world;
 
   void init() {
+    score = 0;
+    timeSinceSceneStart = 0f;
+
+    getSurface().setAlwaysOnTop(false);
+
+    statsWindow.getSurface().setVisible(true);
+    statsWindow.getSurface().setAlwaysOnTop(true);
+
+    statsWindow.getSurface().setLocation(displayWidth - statsWindow.width - 20, displayHeight - statsWindow.height - 50);
+
     world = new World();
+
     windowResize(400, 400);
+    delay(300);
+
     windowDragger.centerWindow();
     windowStartedPos = windowDragger.getWinPos();
     windowHasNotBeenMovedYet = true;
@@ -16,6 +32,10 @@ class Scene_InGame implements Scene {
   }
 
   void update() {
+    timeSinceSceneStart = (millis() - startMillis) / 1000f; //in seconds
+
+    world.update();
+
     //Wiggle the window if it hasn't been moved yet, to show the user they can move it themselves.
     if (windowHasNotBeenMovedYet) {
       //designer values:
@@ -26,17 +46,21 @@ class Scene_InGame implements Scene {
       int cycleCutoff = 3; //after how many swings (left + right) it stops
 
       //calculations:
-      float timeSinceSceneStart = (millis() - startMillis) / 1000f; //in seconds
-      timeSinceSceneStart += + period/2f; //make the animation start at a rest point, instead of immediately starting with a bounce
-      float repeater = timeSinceSceneStart % period;
+      float localTimeSinceSceneStart = timeSinceSceneStart + period/2f; //make the animation start at a rest point, instead of immediately starting with a bounce
+      float repeater = localTimeSinceSceneStart % period;
       float offset = bounceMagnitude * exp(-decay * repeater) * sin(frequency * repeater);
-      float threshold = (timeSinceSceneStart % period) - ((cycleCutoff * PI) / frequency);
+      float threshold = (localTimeSinceSceneStart % period) - ((cycleCutoff * PI) / frequency);
       if (threshold > 0) offset = 0;
 
       //move the window:
       windowDragger.setWindowPos(int(windowStartedPos.x + offset), int(windowStartedPos.y));
     } else {
       windowDragger.clickDragWindow();
+    }
+
+    if (random(200) < 1) {
+      score++;
+      println("bumped score to ", score);
     }
   }
 
@@ -74,10 +98,13 @@ class Scene_InGame implements Scene {
   }
 
   void cleanup() {
+    world.cleanup();
+    statsWindow.getSurface().setVisible(false);
     windowResize(WIDTH, HEIGHT);
     if (!isWindows()) {
       delay(300);
     }
     windowDragger.centerWindow();
+    timeSinceSceneStart = null;
   }
 }

@@ -1,6 +1,8 @@
 WindowDragger windowDragger;
 GameState gameState;
+
 PFont OCRA;
+StatsWindow statsWindow;
 
 final int WIDTH = 1280;
 final int HEIGHT = 720;
@@ -24,6 +26,12 @@ void setup() {
     new Scene_InGame(),
     new Scene_Score()
     );
+
+  runSketch(new String[]{this.getClass().getName()}, statsWindow = new StatsWindow());
+  getSurface().setAlwaysOnTop(true);
+
+  delay(10); //ensure the new sketch has started up enough to be able to be invisible'd
+  statsWindow.getSurface().setVisible(false);
 }
 
 void draw() {

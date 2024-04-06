@@ -1,12 +1,14 @@
-class World {
-  int Width = -1;
-  int Height = -1;
+Integer chickensAlive;
+
+class World implements Scene {
+  int Width;
+  int Height;
 
   PGraphics background;
   PGraphics canvas;
 
   ArrayList<Chicken> chickens;
-  int amountOfChickensToSpawn = 10;
+  int amountOfChickensToSpawn;
   Fox fox;
 
   World() {
@@ -16,6 +18,9 @@ class World {
     background = createGraphics(Width, Height);
     drawBackground();
 
+    amountOfChickensToSpawn = int(random(10, 20));
+    chickensAlive = amountOfChickensToSpawn;
+
     PVector worldSize = new PVector(Width, Height);
     chickens = new ArrayList<Chicken>();
     for (int i = 0; i < amountOfChickensToSpawn; i++) {
@@ -24,6 +29,9 @@ class World {
     }
     PVector pos = new PVector(random(Width), random(Height));
     fox = new Fox(worldSize, pos, 10, chickens);
+  }
+
+  void init() {
   }
 
   void drawBackground() {
@@ -43,21 +51,42 @@ class World {
     background.endDraw();
   }
 
+  void update() {
+    for (Chicken chicken : chickens) {
+      chicken.update();
+    }
+
+    fox.update();
+
+    chickensAlive = chickens.size();
+  }
+
+
   void render() {
     canvas.beginDraw();
     canvas.image(background, 0, 0);
     //Draw stuff in the world here (on the canvas) -->
 
-    //move this rendering and updating to World class later
     for (Chicken chicken : chickens) {
-      chicken.update();
       chicken.render(canvas);
     }
 
-    fox.update();
     fox.render(canvas);
 
     //<-- Draw stuff in the world here (on the canvas)
     canvas.endDraw();
+  }
+
+  void cleanup() {
+    chickensAlive = null;
+  }
+
+  void mousePressed() {
+  }
+
+  void mouseDragged() {
+  }
+
+  void mouseReleased() {
   }
 }
