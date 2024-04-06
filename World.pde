@@ -59,7 +59,6 @@ class World implements Scene {
     for (int i = chickens.size()-1; i >= 0; i--) {
       Chicken c = chickens.get(i);
       if (pos.dist(c.pos) < 32) {
-        println("found a chicken!");
         chickens.remove(i);
         popups.add(new InWorldPopup(c.pos, "Caught!", 2));
         return;
@@ -81,7 +80,6 @@ class World implements Scene {
       popups.get(i).update();
       if (popups.get(i).expired) {
         popups.remove(i);
-        println("removed popup ", i);
       }
     }
   }

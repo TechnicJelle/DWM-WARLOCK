@@ -31,7 +31,7 @@ class Fox extends Animal {
       }
     }
 
-    if (distance > sq(256)) return Optional.empty(); //how far the fox can see 
+    if (distance > sq(256)) return Optional.empty(); //how far the fox can see
 
     return Optional.of(closest);
   }
