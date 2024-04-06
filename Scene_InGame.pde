@@ -260,6 +260,7 @@ class Scene_InGame implements Scene {
       }
       break;
     case KILL:
+      //recticle
       noFill();
       stroke(RED);
       strokeWeight(2);
@@ -268,6 +269,177 @@ class Scene_InGame implements Scene {
       line(width/2, height/2 - 5, width/2, height/2 - 17); //top
       line(width/2 + 5, height/2, width/2 + 17, height/2); //right
       line(width/2, height/2 + 5, width/2, height/2 + 17); //bottom
+      
+      if (netIsDown){
+        pushMatrix();
+        rotate(PI/14);
+        translate(width-67, height-239);
+        strokeWeight(1);
+        fill(BLACK);
+        scale(2);
+        //gun
+        //grip
+        stroke(ORANGE);
+        beginShape();
+        vertex(19,31);
+        vertex(16,40);
+        vertex(16,43);
+        vertex(34,89);
+        vertex(54,77);
+        vertex(62,70);
+        vertex(30,30);
+        endShape(CLOSE);
+        //hand
+        stroke(PALE);
+        beginShape();
+        vertex(24,48);
+        vertex(23,49);
+        vertex(22,51);
+        vertex(23,54);
+        vertex(23,57);
+        vertex(21,62);
+        vertex(20,66);
+        vertex(21,72);
+        vertex(20,77);
+        vertex(23,83);
+        vertex(38,77);
+        vertex(36,74);
+        vertex(32,69);
+        vertex(31,65);
+        vertex(33,60);
+        vertex(33,55);
+        vertex(31,52);
+        vertex(28,49);
+        endShape(CLOSE);
+        //nail
+        beginShape();
+        vertex(23,49);
+        vertex(22,51);
+        vertex(23,55);
+        vertex(23,57);
+        vertex(27,56);
+        vertex(28,54);
+        vertex(26,50);
+        endShape(CLOSE);
+        //top barrel
+        stroke(GREY);
+        beginShape();
+        vertex(3,0);
+        vertex(2,1);
+        vertex(0,4);
+        vertex(57,75);
+        vertex(71,82);
+        vertex(77,76);
+        vertex(4,0);
+        endShape(CLOSE);
+        //sight
+        beginShape();
+        vertex(5,2);
+        vertex(8,5);
+        vertex(8,3);
+        vertex(6,0);
+        endShape(CLOSE);
+        //slot
+        beginShape();
+        vertex(40,49);
+        vertex(52,64);
+        vertex(54,61);
+        vertex(41,47);
+        endShape(CLOSE);
+        //barrelline
+        line(2,1,75,79);
+        //fire
+        noFill();
+        stroke(RED);
+        beginShape();
+        vertex(-5,4);
+        vertex(-13,1);
+        vertex(-6,-1);
+        vertex(-10,-10);
+        vertex(-1,-6);
+        vertex(2,-13);
+        vertex(3,-5);
+        endShape();
+        popMatrix();
+      }else{
+        pushMatrix();
+        translate(width-150, height-150);
+        strokeWeight(1);
+        fill(BLACK);
+        scale(2);
+        //gun
+        //grip
+        stroke(ORANGE);
+        beginShape();
+        vertex(19,31);
+        vertex(16,40);
+        vertex(16,43);
+        vertex(34,89);
+        vertex(54,77);
+        vertex(62,70);
+        vertex(30,30);
+        endShape(CLOSE);
+        //hand
+        stroke(PALE);
+        beginShape();
+        vertex(24,48);
+        vertex(23,49);
+        vertex(22,51);
+        vertex(23,54);
+        vertex(23,57);
+        vertex(21,62);
+        vertex(20,66);
+        vertex(21,72);
+        vertex(20,77);
+        vertex(23,83);
+        vertex(38,77);
+        vertex(36,74);
+        vertex(32,69);
+        vertex(31,65);
+        vertex(33,60);
+        vertex(33,55);
+        vertex(31,52);
+        vertex(28,49);
+        endShape(CLOSE);
+        //nail
+        beginShape();
+        vertex(23,49);
+        vertex(22,51);
+        vertex(23,55);
+        vertex(23,57);
+        vertex(27,56);
+        vertex(28,54);
+        vertex(26,50);
+        endShape(CLOSE);
+        //top barrel
+        stroke(GREY);
+        beginShape();
+        vertex(3,0);
+        vertex(2,1);
+        vertex(0,4);
+        vertex(57,75);
+        vertex(71,82);
+        vertex(77,76);
+        vertex(4,0);
+        endShape(CLOSE);
+        //sight
+        beginShape();
+        vertex(5,2);
+        vertex(8,5);
+        vertex(8,3);
+        vertex(6,0);
+        endShape(CLOSE);
+        //slot
+        beginShape();
+        vertex(40,49);
+        vertex(52,64);
+        vertex(54,61);
+        vertex(41,47);
+        endShape(CLOSE);
+        //barrelline
+        line(2,1,75,79);
+        popMatrix();
+      }
       break;
     }
   }
