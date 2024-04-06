@@ -6,3 +6,4 @@ color GREEN = color(0,255,0);
 color BLACK = color(0);
 color GREY = color(81);
 color BROWN = color(175,90,20);
+color PALE = color(255,166,130);
