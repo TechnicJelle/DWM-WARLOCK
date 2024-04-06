@@ -4,7 +4,12 @@ GameState gameState;
 final int WIDTH = 1280;
 final int HEIGHT = 720;
 void settings() {
-  size(WIDTH, HEIGHT, P2D);
+  String os = System.getProperty("os.name").toLowerCase();
+  if (os.contains("windows")) {
+    size(WIDTH, HEIGHT, P2D);
+  } else {
+    size(WIDTH, HEIGHT);
+  }
 }
 
 void setup() {
