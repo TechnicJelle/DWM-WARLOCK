@@ -4,7 +4,9 @@ interface Scene {
   void init();
   void update();
   void render();
-  void mouseClicked();
+  void mousePressed();
+  void mouseDragged();
+  void mouseReleased();
   void cleanup();
 }
 
@@ -32,8 +34,16 @@ class GameState {
     getCurrentScene().render();
   }
 
-  void mouseClickedCurrentScene() {
-    getCurrentScene().mouseClicked();
+  void mousePressedCurrentScene() {
+    getCurrentScene().mousePressed();
+  }
+
+  void mouseDraggedCurrentScene() {
+    getCurrentScene().mouseDragged();
+  }
+
+  void mouseReleasedCurrentScene() {
+    getCurrentScene().mouseReleased();
   }
 
   void nextScene() {

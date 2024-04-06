@@ -23,8 +23,14 @@ class Scene_Startup implements Scene {
     text("Megahard presents...", width/2f, height*0.5);
   }
 
-  void mouseClicked() {
+  void mousePressed() {
     gameState.nextScene();
+  }
+
+  void mouseDragged() {
+  }
+
+  void mouseReleased() {
   }
 
   void cleanup() {
