@@ -41,9 +41,9 @@ class WindowDragger {
   }
 
   //Queue window for centering.
-  void centerWindow() {
+  /*void centerWindow() {
     winPos.set(displayWidth/2 - width/2, displayHeight/2 - height/2);
-  }
+  }*/
 
   //Call at end of frame.
   void applyWindowPos() {

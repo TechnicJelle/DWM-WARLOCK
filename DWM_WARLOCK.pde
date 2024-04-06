@@ -4,6 +4,8 @@ GameState gameState;
 PFont OCRA;
 StatsWindow statsWindow;
 
+PVector sizeToResizeTo;
+
 final int WIDTH = 1280;
 final int HEIGHT = 720;
 void settings() {
@@ -39,6 +41,14 @@ void draw() {
   background(BLACK);
   gameState.updateCurrentScene();
   gameState.renderCurrentScene();
+  if (sizeToResizeTo != null) {
+    int x = int(sizeToResizeTo.x);
+    int y = int(sizeToResizeTo.y);
+    sizeToResizeTo = null;
+    windowDragger.setWindowPos(displayWidth/2 - x/2, displayHeight/2 - y/2);
+    windowResize(x, y);
+    delay(100);
+  }
   windowDragger.applyWindowPos();
 }
 
