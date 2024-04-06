@@ -273,7 +273,7 @@ class Scene_InGame implements Scene {
   }
 
   void keyPressed() {
-    if (key == ' ') {
+    if (key == ' ' && !netIsDown) {
       netIsDown = true;
       PVector screenSize = new PVector(width/2, height/2);
       PVector screenCenter = windowDragger.getWinPos().add(screenSize);
