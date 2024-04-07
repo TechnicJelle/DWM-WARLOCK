@@ -1,4 +1,6 @@
 PGraphics grChicken;
+PGraphics grChickenDead;
+
 PGraphics grFox;
 PGraphics grFoxDead;
 
@@ -8,8 +10,14 @@ PGraphics grNetUp;
 PGraphics grGunRest;
 PGraphics grGunFire;
 
+PGraphics grLogo;
+
 void setupGraphics() {
+  setupGraphicLogo();
+
   setupGraphicChicken();
+  setupGraphicChickenDead();
+  
   setupGraphicFox();
   setupGraphicFoxDead();
 
@@ -18,6 +26,195 @@ void setupGraphics() {
 
   setupGraphicGunRest();
   setupGraphicGunFire();
+}
+
+void setupGraphicLogo() {
+  grLogo = createGraphics(520, 105);
+  grLogo.beginDraw();
+
+  grLogo.pushMatrix();
+  grLogo.scale(5);
+  grLogo.strokeWeight(1);
+  grLogo.fill(BLACK);
+
+  //FOX
+  grLogo.stroke(ORANGE);
+  //F
+  grLogo.beginShape();
+  grLogo.vertex(0, 1);
+  grLogo.vertex(0, 3);
+  grLogo.vertex(2, 4);
+  grLogo.vertex(2, 17);
+  grLogo.vertex(0, 18);
+  grLogo.vertex(0, 20);
+  grLogo.vertex(8, 20);
+  grLogo.vertex(8, 18);
+  grLogo.vertex(6, 17);
+  grLogo.vertex(6, 12);
+  grLogo.vertex(9, 12);
+  grLogo.vertex(10, 13);
+  grLogo.vertex(11, 13);
+  grLogo.vertex(11, 8);
+  grLogo.vertex(10, 8);
+  grLogo.vertex(9, 9);
+  grLogo.vertex(6, 9);
+  grLogo.vertex(6, 4);
+  grLogo.vertex(11, 4);
+  grLogo.vertex(12, 5);
+  grLogo.vertex(13, 5);
+  grLogo.vertex(13, 0);
+  grLogo.vertex(12, 0);
+  grLogo.vertex(11, 1);
+  grLogo.endShape(CLOSE);
+  //O outer
+  grLogo.beginShape();
+  grLogo.vertex(13, 5);
+  grLogo.vertex(13, 16);
+  grLogo.vertex(15, 20);
+  grLogo.vertex(22, 20);
+  grLogo.vertex(25, 17);
+  grLogo.vertex(25, 6);
+  grLogo.vertex(23, 2);
+  grLogo.vertex(16, 2);
+  grLogo.endShape(CLOSE);
+  //O inner
+  grLogo.beginShape();
+  grLogo.vertex(17, 6);
+  grLogo.vertex(17, 15);
+  grLogo.vertex(18, 17);
+  grLogo.vertex(20, 17);
+  grLogo.vertex(21, 16);
+  grLogo.vertex(21, 7);
+  grLogo.vertex(20, 5);
+  grLogo.vertex(18, 5);
+  grLogo.endShape(CLOSE);
+  //X
+  grLogo.beginShape();
+  grLogo.vertex(25, 2);
+  grLogo.vertex(25, 4);
+  grLogo.vertex(27, 5);
+  grLogo.vertex(30, 12);
+  grLogo.vertex(27, 18);
+  grLogo.vertex(25, 19);
+  grLogo.vertex(25, 20);
+  grLogo.vertex(29, 20);
+  grLogo.vertex(32, 15);
+  grLogo.vertex(34, 20);
+  grLogo.vertex(39, 20);
+  grLogo.vertex(39, 18);
+  grLogo.vertex(37, 17);
+  grLogo.vertex(34, 11);
+  grLogo.vertex(37, 4);
+  grLogo.vertex(39, 3);
+  grLogo.vertex(39, 2);
+  grLogo.vertex(35, 2);
+  grLogo.vertex(32, 7);
+  grLogo.vertex(30, 2);
+  grLogo.endShape(CLOSE);
+
+  //HUNT
+  grLogo.stroke(WHITE);
+  //H
+  grLogo.beginShape();
+  grLogo.vertex(41, 1);
+  grLogo.vertex(41, 3);
+  grLogo.vertex(42, 4);
+  grLogo.vertex(42, 17);
+  grLogo.vertex(41, 18);
+  grLogo.vertex(41, 20);
+  grLogo.vertex(47, 20);
+  grLogo.vertex(47, 18);
+  grLogo.vertex(46, 17);
+  grLogo.vertex(46, 12);
+  grLogo.vertex(51, 14);
+  grLogo.vertex(51, 17);
+  grLogo.vertex(50, 18);
+  grLogo.vertex(50, 20);
+  grLogo.vertex(56, 20);
+  grLogo.vertex(56, 18);
+  grLogo.vertex(55, 17);
+  grLogo.vertex(55, 4);
+  grLogo.vertex(56, 3);
+  grLogo.vertex(56, 1);
+  grLogo.vertex(50, 1);
+  grLogo.vertex(50, 3);
+  grLogo.vertex(51, 4);
+  grLogo.vertex(51, 9);
+  grLogo.vertex(46, 8);
+  grLogo.vertex(46, 4);
+  grLogo.vertex(47, 3);
+  grLogo.vertex(47, 1);
+  grLogo.endShape(CLOSE);
+  //U
+  grLogo.beginShape();
+  grLogo.vertex(57, 2);
+  grLogo.vertex(57, 4);
+  grLogo.vertex(58, 5);
+  grLogo.vertex(58, 17);
+  grLogo.vertex(60, 20);
+  grLogo.vertex(66, 20);
+  grLogo.vertex(67, 19);
+  grLogo.vertex(68, 20);
+  grLogo.vertex(71, 20);
+  grLogo.vertex(71, 18);
+  grLogo.vertex(70, 17);
+  grLogo.vertex(70, 5);
+  grLogo.vertex(71, 4);
+  grLogo.vertex(71, 2);
+  grLogo.vertex(66, 2);
+  grLogo.vertex(66, 16);
+  grLogo.vertex(65, 17);
+  grLogo.vertex(63, 17);
+  grLogo.vertex(62, 16);
+  grLogo.vertex(62, 2);
+  grLogo.endShape(CLOSE);
+  //N
+  grLogo.beginShape();
+  grLogo.vertex(73, 2);
+  grLogo.vertex(73, 4);
+  grLogo.vertex(74, 5);
+  grLogo.vertex(74, 17);
+  grLogo.vertex(73, 18);
+  grLogo.vertex(73, 20);
+  grLogo.vertex(79, 20);
+  grLogo.vertex(79, 18);
+  grLogo.vertex(78, 17);
+  grLogo.vertex(78, 11);
+  grLogo.vertex(83, 20);
+  grLogo.vertex(88, 20);
+  grLogo.vertex(88, 18);
+  grLogo.vertex(87, 17);
+  grLogo.vertex(87, 5);
+  grLogo.vertex(88, 4);
+  grLogo.vertex(88, 2);
+  grLogo.vertex(82, 2);
+  grLogo.vertex(82, 4);
+  grLogo.vertex(83, 5);
+  grLogo.vertex(83, 12);
+  grLogo.vertex(78, 2);
+  grLogo.endShape(CLOSE);
+  //T
+  grLogo.beginShape();
+  grLogo.vertex(89, 2);
+  grLogo.vertex(89, 7);
+  grLogo.vertex(91, 7);
+  grLogo.vertex(92, 5);
+  grLogo.vertex(94, 5);
+  grLogo.vertex(94, 17);
+  grLogo.vertex(92, 18);
+  grLogo.vertex(92, 20);
+  grLogo.vertex(100, 20);
+  grLogo.vertex(100, 18);
+  grLogo.vertex(98, 17);
+  grLogo.vertex(98, 5);
+  grLogo.vertex(100, 5);
+  grLogo.vertex(101, 7);
+  grLogo.vertex(103, 7);
+  grLogo.vertex(103, 2);
+  grLogo.endShape(CLOSE);
+  grLogo.popMatrix();
+  
+  grLogo.endDraw();
 }
 
 void setupGraphicChicken() {
@@ -87,6 +284,70 @@ void setupGraphicChicken() {
 
   grChicken.popMatrix();
   grChicken.endDraw();
+}
+
+void setupGraphicChickenDead(){
+  grChickenDead = createGraphics(32,16);
+  grChickenDead.beginDraw();
+  grChickenDead.strokeWeight(1);
+  grChickenDead.fill(BLACK);
+  
+  grChickenDead.pushMatrix();
+  grChickenDead.scale(2);
+  
+  //crown
+  grChickenDead.stroke(RED);
+  grChickenDead.beginShape();
+  grChickenDead.vertex(1,1);
+  grChickenDead.vertex(2,2);
+  grChickenDead.vertex(6,2);
+  grChickenDead.vertex(7,1);
+  grChickenDead.vertex(5,1);
+  grChickenDead.vertex(4,0);
+  grChickenDead.vertex(2,1);
+  grChickenDead.endShape(CLOSE);
+  //beak
+  grChickenDead.stroke(YELLOW);
+  grChickenDead.beginShape();
+  grChickenDead.vertex(2,3);
+  grChickenDead.vertex(0,4);
+  grChickenDead.vertex(2,5);
+  grChickenDead.endShape(CLOSE);
+  //footL
+  grChickenDead.noFill();
+  grChickenDead.beginShape();
+  grChickenDead.vertex(1,6);
+  grChickenDead.vertex(2,7);
+  grChickenDead.vertex(5,6);
+  grChickenDead.endShape();
+  //body
+  grChickenDead.fill(BLACK);
+  grChickenDead.stroke(WHITE);
+  grChickenDead.beginShape();
+  grChickenDead.vertex(2,2);
+  grChickenDead.vertex(2,5);
+  grChickenDead.vertex(5,6);
+  grChickenDead.vertex(12,6);
+  grChickenDead.vertex(10,5);
+  grChickenDead.vertex(11,4);
+  grChickenDead.vertex(8,3);
+  grChickenDead.vertex(7,3);
+  grChickenDead.vertex(6,2);
+  grChickenDead.endShape(CLOSE);
+  //footR
+  grChickenDead.stroke(YELLOW);
+  grChickenDead.noFill();
+  grChickenDead.beginShape();
+  grChickenDead.vertex(5,6);
+  grChickenDead.vertex(6,7);
+  grChickenDead.vertex(8,6);
+  grChickenDead.endShape();
+  //eye
+  grChickenDead.stroke(GREY);
+  grChickenDead.line(3,4,5,4);
+  
+  grChickenDead.popMatrix();
+  grChickenDead.endDraw();
 }
 
 void setupGraphicFox() {
@@ -309,98 +570,98 @@ void setupGraphicFox() {
 void setupGraphicFoxDead() {
   grFoxDead = createGraphics(77, 17);
   grFoxDead.beginDraw();
-  
+
   grFoxDead.pushMatrix();
   grFoxDead.strokeWeight(1);
   grFoxDead.scale(2);
-  
+
   //bodybase
   grFoxDead.stroke(ORANGE);
   grFoxDead.fill(BLACK);
   grFoxDead.beginShape();
-  grFoxDead.vertex(1,6);
-  grFoxDead.vertex(0,5);
-  grFoxDead.vertex(0,3);
-  grFoxDead.vertex(3,3);
-  grFoxDead.vertex(4,1);
-  grFoxDead.vertex(5,1);
-  grFoxDead.vertex(5,0);
-  grFoxDead.vertex(7,1);
-  grFoxDead.vertex(8,1);
-  grFoxDead.vertex(9,0);
-  grFoxDead.vertex(11,2);
-  grFoxDead.vertex(12,2);
-  grFoxDead.vertex(13,1);
-  grFoxDead.vertex(16,1);
-  grFoxDead.vertex(18,2);
-  grFoxDead.vertex(20,2);
-  grFoxDead.vertex(22,1);
-  grFoxDead.vertex(25,1);
-  grFoxDead.vertex(27,2);
-  grFoxDead.vertex(29,2);
-  grFoxDead.vertex(34,3);
-  grFoxDead.vertex(33,4);
-  grFoxDead.vertex(36,5);
-  grFoxDead.vertex(33,6);
-  grFoxDead.vertex(34,7);
-  grFoxDead.vertex(30,7);
-  grFoxDead.vertex(27,7);
-  grFoxDead.vertex(25,6);
-  grFoxDead.vertex(25,7);
-  grFoxDead.vertex(2,7);
+  grFoxDead.vertex(1, 6);
+  grFoxDead.vertex(0, 5);
+  grFoxDead.vertex(0, 3);
+  grFoxDead.vertex(3, 3);
+  grFoxDead.vertex(4, 1);
+  grFoxDead.vertex(5, 1);
+  grFoxDead.vertex(5, 0);
+  grFoxDead.vertex(7, 1);
+  grFoxDead.vertex(8, 1);
+  grFoxDead.vertex(9, 0);
+  grFoxDead.vertex(11, 2);
+  grFoxDead.vertex(12, 2);
+  grFoxDead.vertex(13, 1);
+  grFoxDead.vertex(16, 1);
+  grFoxDead.vertex(18, 2);
+  grFoxDead.vertex(20, 2);
+  grFoxDead.vertex(22, 1);
+  grFoxDead.vertex(25, 1);
+  grFoxDead.vertex(27, 2);
+  grFoxDead.vertex(29, 2);
+  grFoxDead.vertex(34, 3);
+  grFoxDead.vertex(33, 4);
+  grFoxDead.vertex(36, 5);
+  grFoxDead.vertex(33, 6);
+  grFoxDead.vertex(34, 7);
+  grFoxDead.vertex(30, 7);
+  grFoxDead.vertex(27, 7);
+  grFoxDead.vertex(25, 6);
+  grFoxDead.vertex(25, 7);
+  grFoxDead.vertex(2, 7);
   grFoxDead.endShape(CLOSE);
-  
+
   //tailwhite
   grFoxDead.stroke(WHITE);
   grFoxDead.noFill();
   grFoxDead.beginShape();
-  grFoxDead.vertex(29,2);
-  grFoxDead.vertex(31,2);
-  grFoxDead.vertex(34,3);
-  grFoxDead.vertex(33,4);
-  grFoxDead.vertex(36,5);
-  grFoxDead.vertex(33,6);
-  grFoxDead.vertex(34,7);
-  grFoxDead.vertex(30,7);
+  grFoxDead.vertex(29, 2);
+  grFoxDead.vertex(31, 2);
+  grFoxDead.vertex(34, 3);
+  grFoxDead.vertex(33, 4);
+  grFoxDead.vertex(36, 5);
+  grFoxDead.vertex(33, 6);
+  grFoxDead.vertex(34, 7);
+  grFoxDead.vertex(30, 7);
   grFoxDead.endShape();
-  
+
   //beard
   grFoxDead.beginShape();
-  grFoxDead.vertex(1,6);
-  grFoxDead.vertex(2,7);
-  grFoxDead.vertex(6,7);
+  grFoxDead.vertex(1, 6);
+  grFoxDead.vertex(2, 7);
+  grFoxDead.vertex(6, 7);
   grFoxDead.endShape();
-  
+
   //leg1
   grFoxDead.stroke(ORANGE);
   grFoxDead.beginShape();
-  grFoxDead.vertex(10,7);
-  grFoxDead.vertex(14,6);
-  grFoxDead.vertex(16,6);
-  grFoxDead.vertex(16,7);
+  grFoxDead.vertex(10, 7);
+  grFoxDead.vertex(14, 6);
+  grFoxDead.vertex(16, 6);
+  grFoxDead.vertex(16, 7);
   grFoxDead.endShape(CLOSE);
-  
+
   //leg2
   grFoxDead.stroke(ORANGE);
   grFoxDead.beginShape();
-  grFoxDead.vertex(19,7);
-  grFoxDead.vertex(25,7);
-  grFoxDead.vertex(25,6);
-  grFoxDead.vertex(23,6);
+  grFoxDead.vertex(19, 7);
+  grFoxDead.vertex(25, 7);
+  grFoxDead.vertex(25, 6);
+  grFoxDead.vertex(23, 6);
   grFoxDead.endShape(CLOSE);
-  
+
   //sock1
   grFoxDead.stroke(GREY);
-  grFoxDead.line(16,7,22,7);
-  
+  grFoxDead.line(16, 7, 22, 7);
+
   //sock2
   grFoxDead.stroke(GREY);
-  grFoxDead.line(6,7,12,7);
-  
+  grFoxDead.line(6, 7, 12, 7);
+
   //eyes
-  grFoxDead.line(4,4,6,4);
-  grFoxDead.line(7,4,9,4);
-  
+  grFoxDead.line(4, 4, 6, 4);
+  grFoxDead.line(7, 4, 9, 4);
+
   grFoxDead.popMatrix();
   grFoxDead.endDraw();
 }

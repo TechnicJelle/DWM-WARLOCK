@@ -80,6 +80,7 @@ class Fox extends Animal {
         sfxChicken.pan(map(c.pos.x, 0, displayWidth, -1.0, 1.0));
         sfxChicken.play();
         chickens.remove(c);
+        corpses.add(c.pos);
       }
       moveDir = diff.normalize();
       move(moveSpeed*1.5f);
