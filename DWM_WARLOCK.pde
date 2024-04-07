@@ -18,6 +18,12 @@ void settings() {
 }
 
 void setup() {
+  // First create the secondary stats window.
+  //  Hopefully the rest of the contents of this function are slow enough that it'll succeed with
+  //  the setVisible(false) later on without an extra delay.
+  runSketch(new String[]{this.getClass().getName()}, statsWindow = new StatsWindow());
+  getSurface().setAlwaysOnTop(true);
+
   OCRA = createFont("OCRA.ttf", 24);
   textFont(OCRA);
   //Set the start position of the window here (in screen pixels)
@@ -33,7 +39,7 @@ void setup() {
   runSketch(new String[]{this.getClass().getName()}, statsWindow = new StatsWindow());
   getSurface().setAlwaysOnTop(true);
 
-  delay(10); //ensure the new sketch has started up enough to be able to be invisible'd
+  //delay(10); //ensure the new sketch has started up enough to be able to be invisible'd
   statsWindow.getSurface().setVisible(false);
   setupGraphics();
 }
