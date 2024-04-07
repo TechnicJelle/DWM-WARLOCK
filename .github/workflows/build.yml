@@ -24,7 +24,7 @@ jobs:
           tag: ${{ env.PROCESSING_TAG }}
       - name: Download Sound Library on Linux
         if: runner.os == 'Linux'
-        run: |
+        run: >-
           mkdir -p $HOME/ProcessingSketchbook/libraries/
           mkdir -p $HOME/.config/processing/
           echo "sketchbook.path.four=$HOME/ProcessingSketchbook" > $HOME/.config/processing/preferences.txt
