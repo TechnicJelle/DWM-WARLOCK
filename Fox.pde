@@ -40,7 +40,7 @@ class Fox extends Animal {
   }
 
   void update() {
-    bounceOffBorders();
+    super.update();
     Optional<Chicken> potentiallyClosestChicken = getClosestChicken();
     if (state != FoxState.DEAD) {
       if (potentiallyClosestChicken.isPresent()) {
