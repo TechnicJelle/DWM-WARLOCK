@@ -22,6 +22,19 @@ jobs:
         uses: pr1metine/setup-processing@v2.1.0
         with:
           tag: ${{ env.PROCESSING_TAG }}
+      - name: Download Sound Library on Linux
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p $HOME/ProcessingSketchbook/libraries
+          echo "sketchbook.path.four=$HOME/ProcessingSketchbook" > $HOME/.config/processing/preferences.txt
+          curl -s -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/processing/processing-sound/releases/tags/latest \
+          | jq '.assets .[] | select(.name | contains("sound.zip")) .browser_download_url' \
+          | xargs wget -O latest.zip \
+          | xargs 7z x latest.zip
+          move sound $HOME/ProcessingSketchbook/libraries/
       - name: Export
         # The processing-java prefers absolute paths on Windows.
         run: processing-java --sketch="${{ github.workspace }}" --output="${{ github.workspace }}/out" --force --export
