@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 WindowDragger windowDragger;
 GameState gameState;
 
@@ -7,6 +9,14 @@ StatsWindow statsWindow;
 PVector sizeToResizeTo;
 
 Table highscores;
+
+SoundFile sfxMenu;
+SoundFile sfxTyped;
+SoundFile sfxChicken;
+SoundFile sfxNet;
+SoundFile sfxGun;
+SoundFile sfxHighscores;
+SoundFile sfxHighscoresTop;
 
 final int WIDTH = 1280;
 final int HEIGHT = 720;
@@ -40,6 +50,14 @@ void setup() {
   highscores.setColumnType("score", Table.INT);
   highscores.trim();
   highscores.sortReverse("score");
+
+  sfxMenu = new SoundFile(this, "sfx/menu.wav");
+  sfxTyped = new SoundFile(this, "sfx/typed.wav");
+  sfxChicken = new SoundFile(this, "sfx/chicken.wav");
+  sfxNet = new SoundFile(this, "sfx/net.wav");
+  sfxGun = new SoundFile(this, "sfx/gun.wav");
+  sfxHighscores = new SoundFile(this, "sfx/highscores.wav");
+  sfxHighscoresTop = new SoundFile(this, "sfx/highscores_top.wav");
 
   delay(10); //ensure the new sketch has started up enough to be able to be invisible'd
   statsWindow.getSurface().setVisible(false);

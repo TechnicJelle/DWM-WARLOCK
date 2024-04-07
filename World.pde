@@ -62,6 +62,7 @@ class World implements Scene {
   }
 
   void attemptCatchChickenAt(PVector pos) {
+    sfxNet.play();
     for (int i = chickens.size()-1; i >= 0; i--) {
       Chicken c = chickens.get(i);
       if (pos.dist(c.pos) < 32) {
@@ -74,6 +75,7 @@ class World implements Scene {
   }
 
   boolean attemptShootFoxAt(PVector pos) {
+    sfxGun.play();
     if (pos.dist(fox.pos) < 32) {
       score = round(amountOfChickensSaved * 500 - timeSinceSaveStart * 10);
       millisAtFoxDeath = millis();
