@@ -64,6 +64,9 @@ class Fox extends Animal {
   }
 
   void render(PGraphics canvas) {
+    canvas.pushStyle();
+    canvas.imageMode(CENTER);
     canvas.image(grFox, pos.x, pos.y);
+    canvas.popStyle();
   }
 }

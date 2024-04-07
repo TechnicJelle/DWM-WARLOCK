@@ -29,6 +29,9 @@ class Chicken extends Animal {
   }
 
   void render(PGraphics canvas) {
+    canvas.pushStyle();
+    canvas.imageMode(CENTER);
     canvas.image(grChicken, pos.x, pos.y);
+    canvas.popStyle();
   }
 }
