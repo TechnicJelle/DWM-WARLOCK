@@ -15,6 +15,8 @@ SoundFile sfxTyped;
 SoundFile sfxChicken;
 SoundFile sfxNet;
 SoundFile sfxGun;
+SoundFile sfxHighscores;
+SoundFile sfxHighscoresTop;
 
 final int WIDTH = 1280;
 final int HEIGHT = 720;
@@ -54,6 +56,8 @@ void setup() {
   sfxChicken = new SoundFile(this, "sfx/chicken.wav");
   sfxNet = new SoundFile(this, "sfx/net.wav");
   sfxGun = new SoundFile(this, "sfx/gun.wav");
+  sfxHighscores = new SoundFile(this, "sfx/highscores.wav");
+  sfxHighscoresTop = new SoundFile(this, "sfx/highscores_top.wav");
 
   delay(10); //ensure the new sketch has started up enough to be able to be invisible'd
   statsWindow.getSurface().setVisible(false);
