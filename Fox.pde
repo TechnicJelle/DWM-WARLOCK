@@ -56,6 +56,7 @@ class Fox extends Animal {
       Chicken c = potentiallyClosestChicken.get();
       PVector diff = PVector.sub(c.pos, pos);
       if (diff.mag() < 32) {
+        sfxChicken.pan(map(c.pos.x, 0, displayWidth, -1.0, 1.0));
         sfxChicken.play();
         chickens.remove(c);
       }
