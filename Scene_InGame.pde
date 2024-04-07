@@ -128,7 +128,6 @@ class Scene_InGame implements Scene {
       break;
     case REMINICE:
       float timeSinceFoxDeath = millis() - millisAtFoxDeath;
-      println(timeSinceFoxDeath);
       if (timeSinceFoxDeath >= baskSeconds*1000) {
         gameState.nextScene();
       }

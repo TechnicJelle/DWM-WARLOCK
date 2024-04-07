@@ -79,7 +79,6 @@ class World implements Scene {
       millisAtFoxDeath = millis();
 
       fox.state = FoxState.DEAD;
-      println("BANG");
       return true;
     }
     return false;
