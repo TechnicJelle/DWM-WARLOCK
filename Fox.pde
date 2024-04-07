@@ -36,8 +36,29 @@ class Fox extends Animal {
     return Optional.of(closest);
   }
 
+  void bounceOffBorders() {
+    if (pos.x <= -10) {
+      pos.x = worldSize.x; //clamp
+    }
+
+    if (pos.x >= worldSize.x+10) {
+      pos.x = 0; //clamp
+    }
+
+    if (pos.y <= -10) {
+      pos.y = worldSize.y; //clamp
+    }
+
+    if (pos.y >= worldSize.y+10) {
+      pos.y = 0; //clamp
+    }
+  }
+
+  void hunting() {
+  }
+
   void update() {
-    super.update();
+    bounceOffBorders();
     Optional<Chicken> potentiallyClosestChicken = getClosestChicken();
     if (state != FoxState.DEAD) {
       if (potentiallyClosestChicken.isPresent()) {
@@ -61,7 +82,7 @@ class Fox extends Animal {
         chickens.remove(c);
       }
       moveDir = diff.normalize();
-      move();
+      move(moveSpeed*1.5f);
       break;
     case DEAD:
       break;
