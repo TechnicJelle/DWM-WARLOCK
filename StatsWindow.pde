@@ -1,6 +1,6 @@
 class StatsWindow extends PApplet {
   void settings() {
-    size(128, 128);
+    size(164, 164);
   }
 
   void setup() {
@@ -8,8 +8,7 @@ class StatsWindow extends PApplet {
     windowTitle("Stats");
 
     frameRate(1);
-    stroke(#FFFF00);
-    strokeWeight(5);
+    textFont(OCRA);
   }
 
   void draw() {
@@ -28,7 +27,7 @@ class StatsWindow extends PApplet {
       textSize(16);
       text("Time Spent:", width/2, height*0.6);
       textSize(32);
-      text(timeSinceSaveStart, width/2, height * 0.8);
+      text(floor(timeSinceSaveStart), width/2, height * 0.8);
     }
   }
 
