@@ -25,7 +25,8 @@ jobs:
       - name: Download Sound Library on Linux
         if: runner.os == 'Linux'
         run: |
-          mkdir -p $HOME/ProcessingSketchbook/libraries
+          mkdir -p $HOME/ProcessingSketchbook/libraries/
+          mkdir -p $HOME/.config/processing/
           echo "sketchbook.path.four=$HOME/ProcessingSketchbook" > $HOME/.config/processing/preferences.txt
           curl -s -L \
             -H "Accept: application/vnd.github+json" \
