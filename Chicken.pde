@@ -3,8 +3,8 @@ enum ChickenState {
 };
 
 class Chicken extends Animal {
-  ChickenState state = ChickenState.IDLE;
-  
+  ChickenState state = ChickenState.EXPLORING;
+
   float fleeDistance = 400;
 
   Chicken(PVector worldSize, PVector pPos, float pMoveSpeed) {
@@ -22,37 +22,43 @@ class Chicken extends Animal {
 
     switch(state) {
     case IDLE:
+      idle(idleAngle);
+      if (int(random(0, 70)) == 0) {
+        state = ChickenState.EXPLORING;
+      }
       break;
     case EXPLORING:
       explore();
+      if (int(random(0, 256)) == 0) {
+        state = ChickenState.IDLE;
+        idlePos = pos;
+        idleAngle = random(-0.04f, 0.04f)*moveSpeed;
+      }
       break;
     case FLEEING:
-    flee();
+      flee();
       break;
     }
     checkFoxDistance();
   }
-  
-  void flee(){
+
+  void flee() {
     if (ticCounter <= 0) {
       moveDir = PVector.sub(this.pos, fox.pos).normalize();
       ticCounter = ticSpeed;
     }
-    move(moveSpeed*1.25f);
+    move(moveSpeed*1.5f);
   }
 
   void checkFoxDistance() {
-    if(fox == null) return;
+    if (fox == null) return;
     PVector deltaPos = PVector.sub(this.pos, fox.pos);
 
     if (deltaPos.magSq() < (fleeDistance * fleeDistance)) {
-    println("foxdist: " +deltaPos.mag());
-      println("FLEEING!");
       state = ChickenState.FLEEING;
       ticCounter = 0;
-    }
-    else
-    state = ChickenState.EXPLORING;
+    } else if (state == ChickenState.FLEEING)
+      state = ChickenState.EXPLORING;
   }
 
   void render(PGraphics canvas) {

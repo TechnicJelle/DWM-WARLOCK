@@ -35,7 +35,7 @@ class Fox extends Animal {
 
     return Optional.of(closest);
   }
-  
+
   void bounceOffBorders() {
     if (pos.x <= -10) {
       pos.x = worldSize.x; //clamp
@@ -53,6 +53,10 @@ class Fox extends Animal {
       pos.y = 0; //clamp
     }
   }
+
+  void hunting() {
+  }
+
   void update() {
     bounceOffBorders();
     Optional<Chicken> potentiallyClosestChicken = getClosestChicken();
@@ -76,7 +80,7 @@ class Fox extends Animal {
         chickens.remove(c);
       }
       moveDir = diff.normalize();
-      move(moveSpeed*1.25f);
+      move(moveSpeed*1.5f);
       break;
     case DEAD:
       break;
@@ -95,7 +99,7 @@ class Fox extends Animal {
     case DEAD:
       canvas.image(grFoxDead, pos.x, pos.y+10);
       break;
-    }    
+    }
     canvas.popStyle();
   }
 }

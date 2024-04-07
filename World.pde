@@ -1,6 +1,6 @@
 Integer amountOfChickensToSpawn;
 Integer amountOfChickensSaved;
- Fox fox;
+Fox fox;
 
 class World implements Scene {
   int Width;
@@ -10,7 +10,7 @@ class World implements Scene {
   PGraphics canvas;
 
   ArrayList<Chicken> chickens;
- 
+
 
   ArrayList<InWorldPopup> popups;
 

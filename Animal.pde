@@ -1,12 +1,13 @@
 abstract class Animal {
-  PVector pos, worldSize, target, moveDir = new PVector(0, 0);
-  float moveSpeed = 0f;
+  PVector pos, worldSize, target, moveDir, idlePos = new PVector(0, 0);
+  float moveSpeed, idleAngle = 0f;
   int ticSpeed, ticCounter = 0;
 
   Animal(PVector worldSize, PVector pos, float moveSpeed) {
     this.pos = pos;
     this.moveSpeed = moveSpeed;
     this.worldSize = worldSize;
+    this.idlePos = pos;
   }
 
   void bounceOffBorders() {
@@ -39,6 +40,24 @@ abstract class Animal {
   void move(float pSpeed) {
     pos.add(PVector.mult(moveDir, pSpeed));
     ticCounter -= 1;
+  }
+
+  void idle(float pAngle) {
+    PVector point = PVector.add(pos, new PVector(0, 10));
+
+    float s = sin(pAngle);
+    float c = cos(pAngle);
+
+    point.sub(idlePos);
+
+    float xnew = point.x * c - point.y * s+ idlePos.x;
+    float ynew = point.x * s + point.y * c+ idlePos.y;
+
+    point = new PVector(xnew, ynew );
+
+    point.sub(new PVector(0, 10));
+
+    pos = point;
   }
 
   void explore() {
