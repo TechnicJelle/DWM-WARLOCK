@@ -91,6 +91,7 @@ class Scene_Score implements Scene {
       if (key == BACKSPACE || key == DELETE) {
         if (textInputted.length() > 0) {
           textInputted = textInputted.substring(0, textInputted.length() - 1);
+          sfxTyped.play();
         }
       } else if ((key == RETURN || key == ENTER) && textInputted.length() == 3) {
         textInputting = false;
@@ -110,6 +111,7 @@ class Scene_Score implements Scene {
         if (Character.isLetter(key) || Character.isDigit(key)) {
           if (textInputted.length() < 3) {
             textInputted += Character.toUpperCase(key);
+            sfxTyped.play();
           }
         }
       }

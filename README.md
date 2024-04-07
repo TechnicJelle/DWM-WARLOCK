@@ -8,3 +8,5 @@ Employees:
 - **[koksiroj](https://github.com/koksiroj)** (Responsible for the Megahard branding)
 - **[Nine-Theta](https://github.com/Nine-Theta)**
 - **[TechnicJelle](https://github.com/TechnicJelle)**
+
+All sound effects in this game are generated using [rFXGen](https://github.com/raysan5/rfxgen).
