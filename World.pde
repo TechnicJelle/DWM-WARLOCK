@@ -73,13 +73,16 @@ class World implements Scene {
     }
   }
 
-  void attemptShootFoxAt(PVector pos) {
+  boolean attemptShootFoxAt(PVector pos) {
     if (pos.dist(fox.pos) < 32) {
-      gameState.nextScene();
       score = round(amountOfChickensSaved * 500 - timeSinceSaveStart * 10);
-    }
-  }
+      millisAtFoxDeath = millis();
 
+      fox.state = FoxState.DEAD;
+      return true;
+    }
+    return false;
+  }
 
   void update() {
     for (Chicken chicken : chickens) {

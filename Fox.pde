@@ -1,7 +1,7 @@
 import java.util.Optional;
 
 enum FoxState {
-  IDLE, EXPLORING, HUNTING
+  IDLE, EXPLORING, HUNTING, DEAD
 };
 
 class Fox extends Animal {
@@ -39,12 +39,13 @@ class Fox extends Animal {
   void update() {
     super.update();
     Optional<Chicken> potentiallyClosestChicken = getClosestChicken();
-    if (potentiallyClosestChicken.isPresent()) {
-      state = FoxState.HUNTING;
-    } else {
-      state = FoxState.EXPLORING;
+    if (state != FoxState.DEAD) {
+      if (potentiallyClosestChicken.isPresent()) {
+        state = FoxState.HUNTING;
+      } else {
+        state = FoxState.EXPLORING;
+      }
     }
-
     switch(state) {
     case IDLE:
       break;
@@ -60,13 +61,24 @@ class Fox extends Animal {
       moveDir = diff.normalize();
       move();
       break;
+    case DEAD:
+      break;
     }
   }
 
   void render(PGraphics canvas) {
     canvas.pushStyle();
     canvas.imageMode(CENTER);
-    canvas.image(grFox, pos.x, pos.y);
+    switch(state) {
+    case IDLE:
+    case EXPLORING:
+    case HUNTING:
+      canvas.image(grFox, pos.x, pos.y);
+      break;
+    case DEAD:
+      canvas.image(grFoxDead, pos.x, pos.y+10);
+      break;
+    }    
     canvas.popStyle();
   }
 }

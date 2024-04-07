@@ -2,6 +2,9 @@ class InWorldPopup {
   PVector pos;
   String text;
   float time;
+  
+  float size = 32;
+  color colour = WHITE;
 
   float startMillis;
   boolean expired;
@@ -21,8 +24,8 @@ class InWorldPopup {
 
   void render(PGraphics canvas) {
     canvas.textFont(OCRA);
-    canvas.fill(255);
-    canvas.textSize(32);
+    canvas.fill(colour);
+    canvas.textSize(size);
     canvas.textAlign(CENTER, CENTER);
     canvas.text(text, pos.x, pos.y);
   }
