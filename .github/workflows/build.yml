@@ -24,7 +24,7 @@ jobs:
           tag: ${{ env.PROCESSING_TAG }}
       - name: Download Sound Library on Linux
         if: runner.os == 'Linux'
-        run: |
+        run: >
           sudo apt update
           sudo apt install --only-upgrade jq
           mkdir -p $HOME/ProcessingSketchbook/libraries/
