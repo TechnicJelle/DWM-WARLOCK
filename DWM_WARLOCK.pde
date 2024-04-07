@@ -10,10 +10,10 @@ final int WIDTH = 1280;
 final int HEIGHT = 720;
 void settings() {
   if (isWindows()) {
-    size(WIDTH,HEIGHT);
+    size(WIDTH, HEIGHT);
   } else {
     //fullScreen();
-    size(WIDTH,HEIGHT);
+    size(WIDTH, HEIGHT);
   }
 }
 
@@ -35,6 +35,7 @@ void setup() {
 
   delay(10); //ensure the new sketch has started up enough to be able to be invisible'd
   statsWindow.getSurface().setVisible(false);
+  setupGraphics();
 }
 
 void draw() {
