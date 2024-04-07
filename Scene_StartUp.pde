@@ -23,8 +23,8 @@ class Scene_Startup implements Scene {
     MEGAHARD.disableStyle();
     MOTTO.disableStyle();
     fill(WHITE);
-    shape(MEGAHARD,(width-MEGAHARD.width)/2-20,height*0.3);
-    shape(MOTTO,(width-MOTTO.width)/2-20,height*0.45);
+    shape(MEGAHARD,(width-MEGAHARD.width)/2,height*0.3);
+    shape(MOTTO,(width-MOTTO.width)/2,height*0.45);
     noFill();
   }
 
