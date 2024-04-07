@@ -6,6 +6,8 @@ StatsWindow statsWindow;
 
 PVector sizeToResizeTo;
 
+Table highscores;
+
 final int WIDTH = 1280;
 final int HEIGHT = 720;
 void settings() {
@@ -19,6 +21,10 @@ void settings() {
 
 void setup() {
   OCRA = createFont("OCRA.ttf", 24);
+
+  runSketch(new String[]{this.getClass().getName()}, statsWindow = new StatsWindow());
+  getSurface().setAlwaysOnTop(true);
+
   textFont(OCRA);
   //Set the start position of the window here (in screen pixels)
   windowDragger = new WindowDragger(displayWidth/2 - width/2, displayHeight/2 - height/2);
@@ -30,8 +36,10 @@ void setup() {
     new Scene_Score()
     );
 
-  runSketch(new String[]{this.getClass().getName()}, statsWindow = new StatsWindow());
-  getSurface().setAlwaysOnTop(true);
+  highscores = loadTable("data/highscores.csv", "header");
+  highscores.setColumnType("score", Table.INT);
+  highscores.trim();
+  highscores.sortReverse("score");
 
   delay(10); //ensure the new sketch has started up enough to be able to be invisible'd
   statsWindow.getSurface().setVisible(false);
@@ -71,6 +79,11 @@ void keyPressed() {
 
 void keyReleased() {
   gameState.keyReleasedCurrentScene();
+}
+
+void exit() {
+  saveTable(highscores, "data/highscores.csv");
+  super.exit();
 }
 
 boolean isWindows() {

@@ -67,6 +67,8 @@ class Fox extends Animal {
   }
 
   void render(PGraphics canvas) {
+    canvas.pushStyle();
+    canvas.imageMode(CENTER);
     switch(state) {
     case IDLE:
     case EXPLORING:
@@ -76,6 +78,7 @@ class Fox extends Animal {
     case DEAD:
       canvas.image(grFoxDead, pos.x, pos.y+10);
       break;
-    }
+    }    
+    canvas.popStyle();
   }
 }
