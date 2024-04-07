@@ -57,6 +57,7 @@ class Fox extends Animal {
       PVector diff = PVector.sub(c.pos, pos);
       if (diff.mag() < 32) {
         chickens.remove(c);
+        corpses.add(c.pos);
       }
       moveDir = diff.normalize();
       move();

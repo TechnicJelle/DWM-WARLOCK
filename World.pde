@@ -1,5 +1,23 @@
 Integer amountOfChickensToSpawn;
 Integer amountOfChickensSaved;
+ArrayList<PVector> corpses;
+
+void drawBackground(PGraphics canvas) {
+  canvas.beginDraw();
+  canvas.background(BLACK);
+  for (int clumps = 0; clumps < 200; clumps++) {
+    PVector clumpPos = new PVector(random(0, canvas.width), random(0, canvas.height));
+    for (int blade = 0; blade < random(2, 3); blade++) {
+      PVector bladeDir = PVector.fromAngle(PI + HALF_PI + random(-QUARTER_PI, QUARTER_PI)); // random angle like:  \|/
+      bladeDir.mult(random(5, 10)); //length of the blade
+      PVector bladeEnd = PVector.add(clumpPos, bladeDir);
+      canvas.stroke(GREEN);
+      canvas.strokeWeight(1);
+      canvas.line(clumpPos.x + random(-1, 1), clumpPos.y, bladeEnd.x, bladeEnd.y);
+    }
+  }
+  canvas.endDraw();
+}
 
 class World implements Scene {
   int Width;
@@ -18,7 +36,7 @@ class World implements Scene {
     Height = displayHeight;
     canvas = createGraphics(Width, Height);
     background = createGraphics(Width, Height);
-    drawBackground();
+    drawBackground(background);
 
     amountOfChickensToSpawn = int(random(10, 20));
 
@@ -30,6 +48,7 @@ class World implements Scene {
     }
 
     popups = new ArrayList<InWorldPopup>();
+    corpses = new ArrayList<PVector>();
 
     amountOfChickensSaved = 0;
   }
@@ -41,24 +60,6 @@ class World implements Scene {
     PVector worldSize = new PVector(Width, Height);
     PVector pos = new PVector(random(Width), random(Height));
     fox = new Fox(worldSize, pos, 10, chickens);
-  }
-
-
-  void drawBackground() {
-    background.beginDraw();
-    background.background(BLACK);
-    for (int clumps = 0; clumps < 200; clumps++) {
-      PVector clumpPos = new PVector(random(0, Width), random(0, Height));
-      for (int blade = 0; blade < random(2, 3); blade++) {
-        PVector bladeDir = PVector.fromAngle(PI + HALF_PI + random(-QUARTER_PI, QUARTER_PI)); // random angle like:  \|/
-        bladeDir.mult(random(5, 10)); //length of the blade
-        PVector bladeEnd = PVector.add(clumpPos, bladeDir);
-        background.stroke(GREEN);
-        background.strokeWeight(1);
-        background.line(clumpPos.x + random(-1, 1), clumpPos.y, bladeEnd.x, bladeEnd.y);
-      }
-    }
-    background.endDraw();
   }
 
   void attemptCatchChickenAt(PVector pos) {
@@ -116,6 +117,10 @@ class World implements Scene {
     for (InWorldPopup popup : popups) {
       popup.render(canvas);
     }
+    
+    for (PVector corpse : corpses){
+       canvas.image(grChickenDead,corpse.x,corpse.y);
+    }
 
     //<-- Draw stuff in the world here (on the canvas)
     canvas.endDraw();
@@ -124,6 +129,7 @@ class World implements Scene {
   void cleanup() {
     amountOfChickensToSpawn = null;
     amountOfChickensSaved = null;
+    corpses.clear();
   }
 
   void mousePressed() {
