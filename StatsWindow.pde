@@ -27,7 +27,7 @@ class StatsWindow extends PApplet {
       textSize(16);
       text("Time Spent:", width/2, height*0.6);
       textSize(32);
-      text(timeSinceSaveStart, width/2, height * 0.8);
+      text(floor(timeSinceSaveStart), width/2, height * 0.8);
     }
   }
 
