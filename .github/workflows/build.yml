@@ -37,7 +37,7 @@ jobs:
           mkdir $HOME/ProcessingSketchbook/libraries/
           mkdir $HOME/AppData/Roaming/Processing/
           echo "sketchbook.path.four=$HOME/ProcessingSketchbook" > $HOME/AppData/Roaming/Processing/preferences.txt
-          wget https://github.com/processing/processing-sound/releases/download/latest/sound.zip -OutFile sound.zip
+          Invoke-WebRequest https://github.com/processing/processing-sound/releases/download/latest/sound.zip -OutFile sound.zip
           7z x sound.zip
           mv sound $HOME/ProcessingSketchbook/libraries/
       - name: Export
