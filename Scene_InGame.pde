@@ -19,6 +19,8 @@ class Scene_InGame implements Scene {
 
   boolean netIsDown;
 
+  float baskSeconds = 5;
+
   void init() {
     score = 0;
     timeSinceSceneStart = 0f;
@@ -127,7 +129,7 @@ class Scene_InGame implements Scene {
     case REMINICE:
       float timeSinceFoxDeath = millis() - millisAtFoxDeath;
       println(timeSinceFoxDeath);
-      if (timeSinceFoxDeath >= 6000) {
+      if (timeSinceFoxDeath >= baskSeconds*1000) {
         gameState.nextScene();
       }
     }
@@ -148,7 +150,7 @@ class Scene_InGame implements Scene {
         boolean foxWasShotDead = world.attemptShootFoxAt(screenCenter);
         if (foxWasShotDead) {
           playState = PlayState.REMINICE;
-          InWorldPopup popup = new InWorldPopup(world.fox.pos, "Bask in your violence", 6);
+          InWorldPopup popup = new InWorldPopup(PVector.add(world.fox.pos, new PVector(0, -20)), "Bask in your violence", baskSeconds);
           popup.colour = RED;
           popup.size = 16;
           world.popups.add(popup);
