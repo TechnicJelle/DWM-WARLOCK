@@ -1,5 +1,6 @@
 Integer amountOfChickensToSpawn;
 Integer amountOfChickensSaved;
+ Fox fox;
 
 class World implements Scene {
   int Width;
@@ -9,7 +10,7 @@ class World implements Scene {
   PGraphics canvas;
 
   ArrayList<Chicken> chickens;
-  Fox fox;
+ 
 
   ArrayList<InWorldPopup> popups;
 
@@ -26,7 +27,7 @@ class World implements Scene {
     chickens = new ArrayList<Chicken>();
     for (int i = 0; i < amountOfChickensToSpawn; i++) {
       PVector pos = new PVector(random(Width), random(Height));
-      chickens.add(new Chicken(worldSize, pos, random(5, 10)));
+      chickens.add(new Chicken(worldSize, pos, random(2, 5)));
     }
 
     popups = new ArrayList<InWorldPopup>();
@@ -40,7 +41,7 @@ class World implements Scene {
   void spawnFox() {
     PVector worldSize = new PVector(Width, Height);
     PVector pos = new PVector(random(Width), random(Height));
-    fox = new Fox(worldSize, pos, 10, chickens);
+    fox = new Fox(worldSize, pos, 6, chickens);
   }
 
 

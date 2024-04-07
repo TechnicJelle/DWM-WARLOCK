@@ -149,7 +149,7 @@ class Scene_InGame implements Scene {
         boolean foxWasShotDead = world.attemptShootFoxAt(screenCenter);
         if (foxWasShotDead) {
           playState = PlayState.REMINICE;
-          InWorldPopup popup = new InWorldPopup(PVector.add(world.fox.pos, new PVector(0, -20)), "Bask in your violence", baskSeconds);
+          InWorldPopup popup = new InWorldPopup(PVector.add(fox.pos, new PVector(0, -20)), "Bask in your violence", baskSeconds);
           popup.colour = RED;
           popup.size = 16;
           world.popups.add(popup);

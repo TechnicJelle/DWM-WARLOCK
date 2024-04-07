@@ -32,21 +32,43 @@ abstract class Animal {
   }
 
   void activate() {
-    moveDir = new PVector(1, 1).normalize();
-    ticSpeed = 100;
+    moveDir = PVector.random2D();
+    ticSpeed = int(random(10*moveSpeed, 10*moveSpeed*moveSpeed));
   }
 
-  void move() {
-    pos.add(PVector.mult(moveDir, moveSpeed));
+  void move(float pSpeed) {
+    pos.add(PVector.mult(moveDir, pSpeed));
     ticCounter -= 1;
   }
 
   void explore() {
     if (ticCounter <= 0) {
-      moveDir = PVector.random2D();
+      int chooseDir = int(random(0, 4));
+      println(chooseDir);
+
+      switch(chooseDir) {
+      case 0:
+        congregate();
+        break;
+      case 1:
+        disperse();
+        break;
+      default:
+        moveDir = PVector.random2D();
+        break;
+      }
+
       ticCounter = ticSpeed;
     }
-    move();
+    move(moveSpeed);
+  }
+
+  void congregate() {
+    moveDir = PVector.sub(PVector.mult(worldSize, 0.5f), this.pos).normalize();
+  }
+
+  void disperse() {
+    moveDir = PVector.sub(this.pos, PVector.mult(worldSize, 0.5f)).normalize();
   }
 
   void update() {
