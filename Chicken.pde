@@ -9,7 +9,6 @@ class Chicken extends Animal {
 
   Chicken(PVector worldSize, PVector pPos, float pMoveSpeed) {
     super(worldSize, pPos, pMoveSpeed);
-    ticSpeed = int(random(5, 25));
     state = ChickenState.EXPLORING;
     activate();
   }

@@ -63,7 +63,6 @@ abstract class Animal {
   void explore() {
     if (ticCounter <= 0) {
       int chooseDir = int(random(0, 4));
-      println(chooseDir);
 
       switch(chooseDir) {
       case 0:
