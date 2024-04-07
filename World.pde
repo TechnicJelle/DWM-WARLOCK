@@ -1,5 +1,6 @@
 Integer amountOfChickensToSpawn;
 Integer amountOfChickensSaved;
+Fox fox;
 ArrayList<PVector> corpses;
 
 void drawBackground(PGraphics canvas) {
@@ -22,12 +23,13 @@ void drawBackground(PGraphics canvas) {
 class World implements Scene {
   int Width;
   int Height;
+  float sizeModifier = 1080.0f/1080.0f;
 
   PGraphics background;
   PGraphics canvas;
 
   ArrayList<Chicken> chickens;
-  Fox fox;
+
 
   ArrayList<InWorldPopup> popups;
 
@@ -38,13 +40,15 @@ class World implements Scene {
     background = createGraphics(Width, Height);
     drawBackground(background);
 
+    sizeModifier = float(Height)/1080.0f;
+
     amountOfChickensToSpawn = int(random(10, 20));
 
     PVector worldSize = new PVector(Width, Height);
     chickens = new ArrayList<Chicken>();
     for (int i = 0; i < amountOfChickensToSpawn; i++) {
       PVector pos = new PVector(random(Width), random(Height));
-      chickens.add(new Chicken(worldSize, pos, random(5, 10)));
+      chickens.add(new Chicken(worldSize, pos, random(3, 6.5f)*sizeModifier));
     }
 
     popups = new ArrayList<InWorldPopup>();
@@ -59,10 +63,11 @@ class World implements Scene {
   void spawnFox() {
     PVector worldSize = new PVector(Width, Height);
     PVector pos = new PVector(random(Width), random(Height));
-    fox = new Fox(worldSize, pos, 10, chickens);
+    fox = new Fox(worldSize, pos, 8*sizeModifier, chickens);
   }
 
   void attemptCatchChickenAt(PVector pos) {
+    sfxNet.play();
     for (int i = chickens.size()-1; i >= 0; i--) {
       Chicken c = chickens.get(i);
       if (pos.dist(c.pos) < 32) {
@@ -75,6 +80,7 @@ class World implements Scene {
   }
 
   boolean attemptShootFoxAt(PVector pos) {
+    sfxGun.play();
     if (pos.dist(fox.pos) < 32) {
       score = round(amountOfChickensSaved * 500 - timeSinceSaveStart * 10);
       millisAtFoxDeath = millis();
@@ -117,7 +123,7 @@ class World implements Scene {
     for (InWorldPopup popup : popups) {
       popup.render(canvas);
     }
-    
+
     for (PVector corpse : corpses){
        canvas.image(grChickenDead,corpse.x,corpse.y);
     }

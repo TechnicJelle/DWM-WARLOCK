@@ -36,6 +36,7 @@ class GameState {
 
   void renderCurrentScene() {
     if (goToNextScene) {
+      sfxMenu.play();
       goToNextScene = false;
       getCurrentScene().cleanup();
       currentScene++;

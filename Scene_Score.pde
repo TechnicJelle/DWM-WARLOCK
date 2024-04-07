@@ -5,6 +5,8 @@ class Scene_Score implements Scene {
   boolean textInputting = true;
   String textInputted = "";
 
+  int topCount = 10; //amount of players that is visible in the list
+
   void init() {
     textInputting = true;
     textInputted = "";
@@ -63,7 +65,7 @@ class Scene_Score implements Scene {
     pushMatrix();
     float w = width/3;
     translate(width/2 + w/4, height*0.2);
-    for (int i = 0; i < (highscores.getRowCount() < 10 ? highscores.getRowCount() : 10); i++) {
+    for (int i = 0; i < (highscores.getRowCount() < topCount ? highscores.getRowCount() : topCount); i++) {
       float y = i * 50 + 10;
       TableRow tr = highscores.getRow(i);
       textAlign(LEFT, TOP);
@@ -91,13 +93,14 @@ class Scene_Score implements Scene {
       if (key == BACKSPACE || key == DELETE) {
         if (textInputted.length() > 0) {
           textInputted = textInputted.substring(0, textInputted.length() - 1);
+          sfxTyped.play();
         }
       } else if ((key == RETURN || key == ENTER) && textInputted.length() == 3) {
         textInputting = false;
 
         TableRow newRow = highscores.addRow();
         newRow.setString("name", textInputted);
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date now = new Date();
         String strDate = sdfDate.format(now);
         newRow.setString("time", strDate);
@@ -106,10 +109,18 @@ class Scene_Score implements Scene {
         highscores.trim();
         highscores.sortReverse("score");
         saveTable(highscores, "data/highscores.csv");
+
+        int index = highscores.findRowIndex(strDate, "time");
+        if (index == 0) {
+          sfxHighscoresTop.play();
+        } else if (index <= topCount) {
+          sfxHighscores.play();
+        }
       } else if (key != CODED) {
         if (Character.isLetter(key) || Character.isDigit(key)) {
           if (textInputted.length() < 3) {
             textInputted += Character.toUpperCase(key);
+            sfxTyped.play();
           }
         }
       }

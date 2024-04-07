@@ -36,8 +36,29 @@ class Fox extends Animal {
     return Optional.of(closest);
   }
 
+  void bounceOffBorders() {
+    if (pos.x <= -10) {
+      pos.x = worldSize.x; //clamp
+    }
+
+    if (pos.x >= worldSize.x+10) {
+      pos.x = 0; //clamp
+    }
+
+    if (pos.y <= -10) {
+      pos.y = worldSize.y; //clamp
+    }
+
+    if (pos.y >= worldSize.y+10) {
+      pos.y = 0; //clamp
+    }
+  }
+
+  void hunting() {
+  }
+
   void update() {
-    super.update();
+    bounceOffBorders();
     Optional<Chicken> potentiallyClosestChicken = getClosestChicken();
     if (state != FoxState.DEAD) {
       if (potentiallyClosestChicken.isPresent()) {
@@ -56,11 +77,13 @@ class Fox extends Animal {
       Chicken c = potentiallyClosestChicken.get();
       PVector diff = PVector.sub(c.pos, pos);
       if (diff.mag() < 32) {
+        sfxChicken.pan(map(c.pos.x, 0, displayWidth, -1.0, 1.0));
+        sfxChicken.play();
         chickens.remove(c);
         corpses.add(c.pos);
       }
       moveDir = diff.normalize();
-      move();
+      move(moveSpeed*1.5f);
       break;
     case DEAD:
       break;
@@ -79,7 +102,7 @@ class Fox extends Animal {
     case DEAD:
       canvas.image(grFoxDead, pos.x, pos.y+10);
       break;
-    }    
+    }
     canvas.popStyle();
   }
 }
