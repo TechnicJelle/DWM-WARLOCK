@@ -1,8 +1,9 @@
 Integer score;
 Float timeSinceSaveStart;
+float millisAtFoxDeath;
 
 enum PlayState {
-  INTRO, SAVE, KILL
+  INTRO, SAVE, KILL, REMINICE
 }
 
 class Scene_InGame implements Scene {
@@ -123,6 +124,12 @@ class Scene_InGame implements Scene {
         image(grGunRest, width-150, height-150);
       }
       break;
+    case REMINICE:
+      float timeSinceFoxDeath = millis() - millisAtFoxDeath;
+      println(timeSinceFoxDeath);
+      if (timeSinceFoxDeath >= 6000) {
+        gameState.nextScene();
+      }
     }
   }
 
@@ -138,7 +145,16 @@ class Scene_InGame implements Scene {
         world.attemptCatchChickenAt(screenCenter);
         break;
       case KILL:
-        world.attemptShootFoxAt(screenCenter);
+        boolean foxWasShotDead = world.attemptShootFoxAt(screenCenter);
+        if (foxWasShotDead) {
+          playState = PlayState.REMINICE;
+          InWorldPopup popup = new InWorldPopup(world.fox.pos, "Bask in your violence", 6);
+          popup.colour = RED;
+          popup.size = 16;
+          world.popups.add(popup);
+        }
+        break;
+      case REMINICE:
         break;
       }
     }

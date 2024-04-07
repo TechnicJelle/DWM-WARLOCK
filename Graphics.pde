@@ -1,5 +1,6 @@
 PGraphics grChicken;
 PGraphics grFox;
+PGraphics grFoxDead;
 
 PGraphics grNetDown;
 PGraphics grNetUp;
@@ -10,6 +11,7 @@ PGraphics grGunFire;
 void setupGraphics() {
   setupGraphicChicken();
   setupGraphicFox();
+  setupGraphicFoxDead();
 
   setupGraphicNetDown();
   setupGraphicNetUp();
@@ -302,6 +304,105 @@ void setupGraphicFox() {
 
   grFox.popMatrix();
   grFox.endDraw();
+}
+
+void setupGraphicFoxDead() {
+  grFoxDead = createGraphics(77, 17);
+  grFoxDead.beginDraw();
+  
+  grFoxDead.pushMatrix();
+  grFoxDead.strokeWeight(1);
+  grFoxDead.scale(2);
+  
+  //bodybase
+  grFoxDead.stroke(ORANGE);
+  grFoxDead.fill(BLACK);
+  grFoxDead.beginShape();
+  grFoxDead.vertex(1,6);
+  grFoxDead.vertex(0,5);
+  grFoxDead.vertex(0,3);
+  grFoxDead.vertex(3,3);
+  grFoxDead.vertex(4,1);
+  grFoxDead.vertex(5,1);
+  grFoxDead.vertex(5,0);
+  grFoxDead.vertex(7,1);
+  grFoxDead.vertex(8,1);
+  grFoxDead.vertex(9,0);
+  grFoxDead.vertex(11,2);
+  grFoxDead.vertex(12,2);
+  grFoxDead.vertex(13,1);
+  grFoxDead.vertex(16,1);
+  grFoxDead.vertex(18,2);
+  grFoxDead.vertex(20,2);
+  grFoxDead.vertex(22,1);
+  grFoxDead.vertex(25,1);
+  grFoxDead.vertex(27,2);
+  grFoxDead.vertex(29,2);
+  grFoxDead.vertex(34,3);
+  grFoxDead.vertex(33,4);
+  grFoxDead.vertex(36,5);
+  grFoxDead.vertex(33,6);
+  grFoxDead.vertex(34,7);
+  grFoxDead.vertex(30,7);
+  grFoxDead.vertex(27,7);
+  grFoxDead.vertex(25,6);
+  grFoxDead.vertex(25,7);
+  grFoxDead.vertex(2,7);
+  grFoxDead.endShape(CLOSE);
+  
+  //tailwhite
+  grFoxDead.stroke(WHITE);
+  grFoxDead.noFill();
+  grFoxDead.beginShape();
+  grFoxDead.vertex(29,2);
+  grFoxDead.vertex(31,2);
+  grFoxDead.vertex(34,3);
+  grFoxDead.vertex(33,4);
+  grFoxDead.vertex(36,5);
+  grFoxDead.vertex(33,6);
+  grFoxDead.vertex(34,7);
+  grFoxDead.vertex(30,7);
+  grFoxDead.endShape();
+  
+  //beard
+  grFoxDead.beginShape();
+  grFoxDead.vertex(1,6);
+  grFoxDead.vertex(2,7);
+  grFoxDead.vertex(6,7);
+  grFoxDead.endShape();
+  
+  //leg1
+  grFoxDead.stroke(ORANGE);
+  grFoxDead.beginShape();
+  grFoxDead.vertex(10,7);
+  grFoxDead.vertex(14,6);
+  grFoxDead.vertex(16,6);
+  grFoxDead.vertex(16,7);
+  grFoxDead.endShape(CLOSE);
+  
+  //leg2
+  grFoxDead.stroke(ORANGE);
+  grFoxDead.beginShape();
+  grFoxDead.vertex(19,7);
+  grFoxDead.vertex(25,7);
+  grFoxDead.vertex(25,6);
+  grFoxDead.vertex(23,6);
+  grFoxDead.endShape(CLOSE);
+  
+  //sock1
+  grFoxDead.stroke(GREY);
+  grFoxDead.line(16,7,22,7);
+  
+  //sock2
+  grFoxDead.stroke(GREY);
+  grFoxDead.line(6,7,12,7);
+  
+  //eyes
+  grFoxDead.line(4,4,6,4);
+  grFoxDead.line(7,4,9,4);
+  
+  grFoxDead.popMatrix();
+  grFoxDead.endDraw();
 }
 
 void setupGraphicNetDown() {
