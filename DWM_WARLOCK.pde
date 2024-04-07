@@ -4,6 +4,9 @@ GameState gameState;
 PFont OCRA;
 StatsWindow statsWindow;
 
+PShape MEGAHARD;
+PShape MOTTO;
+
 PVector sizeToResizeTo;
 
 Table highscores;
@@ -21,6 +24,8 @@ void settings() {
 
 void setup() {
   OCRA = createFont("OCRA.ttf", 24);
+  MEGAHARD = loadShape("MEGAHARD.svg");
+  MOTTO = loadShape("MOTTO.svg");
 
   runSketch(new String[]{this.getClass().getName()}, statsWindow = new StatsWindow());
   getSurface().setAlwaysOnTop(true);

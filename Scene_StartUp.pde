@@ -1,26 +1,31 @@
 class Scene_Startup implements Scene {
   float textSize = 48;
   float textEnlargeSpeed = 0.5f;
-  float startupTime = 2000; //in millis
+  float startupTime = 5000; //in millis
+  
+  Scene_Startup() {
+  }
 
   void init() {
-    textSize = 48;
-    textEnlargeSpeed = 0.5f;
-    startupTime = 2000; //in millis
+    //textSize = 48;
+    //textEnlargeSpeed = 0.5f;
+    startupTime = 6000; //in millis
   }
 
   void update() {
-    textSize += 0.5f;
+    //textSize += 0.5f;
     if (millis() > startupTime) {
       gameState.nextScene();
     }
   }
 
   void render() {
-    fill(255);
-    textAlign(CENTER, CENTER);
-    textSize(textSize);
-    text("Megahard presents...", width/2f, height*0.5);
+    MEGAHARD.disableStyle();
+    MOTTO.disableStyle();
+    fill(WHITE);
+    shape(MEGAHARD,(width-MEGAHARD.width)/2-20,height*0.3);
+    shape(MOTTO,(width-MOTTO.width)/2-20,height*0.45);
+    noFill();
   }
 
   void mousePressed() {
