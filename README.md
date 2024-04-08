@@ -2,7 +2,9 @@
 _Codename: **DWM_WARLOCK**_  
 Entry for the XP Study Association's 2024 GameJam
 
-Description goes here
+Your chickens have escaped, so you must catch them again!
+But watch out! There is a fox on the hunt for them as well!
+Press `Space` to swat your net...
 
 ## Credits
 _Developed by **Megahard**_ using the [Processing](https://processing.org/) Framework.  
