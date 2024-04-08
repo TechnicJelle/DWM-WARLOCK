@@ -42,7 +42,7 @@ class World implements Scene {
 
     sizeModifier = float(Height)/1080.0f;
 
-    amountOfChickensToSpawn = int(random(10, 20));
+    amountOfChickensToSpawn = 20;
 
     PVector worldSize = new PVector(Width, Height);
     chickens = new ArrayList<Chicken>();
