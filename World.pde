@@ -135,6 +135,7 @@ class World implements Scene {
   void cleanup() {
     amountOfChickensToSpawn = null;
     amountOfChickensSaved = null;
+    fox = null;
     corpses.clear();
   }
 
