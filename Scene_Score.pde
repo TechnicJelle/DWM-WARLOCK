@@ -11,17 +11,20 @@ class Scene_Score implements Scene {
 
   int topCount = 10; //amount of players that is visible in the list
 
+  void restartAfkCountdown() {
+    millisAtSceneInit = millis();
+  }
+
   void init() {
     textInputting = true;
     textInputted = "";
-    millisAtSceneInit = millis();
+    restartAfkCountdown();
   }
 
   void update() {
   }
 
   void render() {
-
     // --- Vertical split line through the middle ---
     stroke(255);
     strokeWeight(2);
@@ -113,18 +116,22 @@ class Scene_Score implements Scene {
   }
 
   void mousePressed() {
+    restartAfkCountdown();
     if (!textInputting) {
       gameState.nextScene();
     }
   }
 
   void mouseDragged() {
+    restartAfkCountdown();
   }
 
   void mouseReleased() {
+    restartAfkCountdown();
   }
 
   void keyPressed() {
+    restartAfkCountdown();
     if (textInputting) {
       if (key == BACKSPACE || key == DELETE) {
         if (textInputted.length() > 0) {
@@ -164,6 +171,7 @@ class Scene_Score implements Scene {
   }
 
   void keyReleased() {
+    restartAfkCountdown();
   }
 
   void cleanup() {
