@@ -50,7 +50,7 @@ class Scene_InGame implements Scene {
   void update() {
     timeSinceSceneStart = (millis() - sceneStartMillis) / 1000f; //in seconds
 
-    if (timeSinceSaveStart != null)
+    if (timeSinceSaveStart != null && (playState == PlayState.SAVE || playState == PlayState.KILL))
       timeSinceSaveStart = (millis() - saveStartMillis) / 1000f; //in seconds
 
     world.update();
