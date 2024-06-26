@@ -41,7 +41,6 @@ class Scene_InGame implements Scene {
     windowDragger.setWindowPos(displayWidth/2 - int(sizeToResizeTo.x)/2, displayHeight/2 - int(sizeToResizeTo.y)/2);
     windowStartedPos = windowDragger.getWinPos();
     windowHasNotBeenMovedYet = true;
-    mouseDownPos = windowDragger.getScreenMouse();
     sceneStartMillis = millis();
 
     netIsDown = false;
@@ -176,6 +175,7 @@ class Scene_InGame implements Scene {
   }
 
   void mouseDragged() {
+    if (mouseDownPos == null) return;
     PVector mouseDragPos = windowDragger.getScreenMouse();
     if (windowHasNotBeenMovedYet && mouseDownPos.dist(mouseDragPos) > 50) {
       windowHasNotBeenMovedYet = false;
