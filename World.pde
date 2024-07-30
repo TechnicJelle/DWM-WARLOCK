@@ -30,8 +30,9 @@ class World implements Scene {
 
   ArrayList<Chicken> chickens;
 
-
   ArrayList<InWorldPopup> popups;
+
+  int catchAttempts = 0;
 
   World() {
     Width = displayWidth;
@@ -68,6 +69,7 @@ class World implements Scene {
 
   void attemptCatchChickenAt(PVector pos) {
     sfxNet.play();
+    catchAttempts++;
     for (int i = chickens.size()-1; i >= 0; i--) {
       Chicken c = chickens.get(i);
       if (pos.dist(c.pos) < 32) {
@@ -81,8 +83,10 @@ class World implements Scene {
 
   boolean attemptShootFoxAt(PVector pos) {
     sfxGun.play();
+    catchAttempts++;
     if (pos.dist(fox.pos) < 32) {
-      score = round(amountOfChickensSaved * 500 - timeSinceSaveStart * 10);
+      int accuracyBonus = max(0, ((amountOfChickensSaved+1) * 100) - (catchAttempts * 50));
+      score = round((amountOfChickensSaved * 500) - (timeSinceSaveStart * 10) + accuracyBonus);
       millisAtFoxDeath = millis();
 
       fox.state = FoxState.DEAD;
