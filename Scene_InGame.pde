@@ -1,4 +1,6 @@
-Integer score;
+import java.util.Map;
+
+HashMap<String, Integer> scores; //Reason, Amount (Can be negative, too!)
 Float timeSinceSaveStart;
 float millisAtFoxDeath;
 
@@ -22,7 +24,7 @@ class Scene_InGame implements Scene {
   float baskSeconds = 5;
 
   void init() {
-    score = 0;
+    scores = new HashMap<String, Integer>(); //Reason, Amount (Can be negative, too!)
     timeSinceSceneStart = 0f;
 
     playState = PlayState.INTRO;

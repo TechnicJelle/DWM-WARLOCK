@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 class Scene_Score implements Scene {
   boolean textInputting = true;
   String textInputted = "";
+  int totalScore = 0;
 
   int millisAtSceneInit = -1;
   int afkTimerMillis = 1000 * 60;
@@ -19,6 +20,13 @@ class Scene_Score implements Scene {
     textInputting = true;
     textInputted = "";
     restartAfkCountdown();
+
+    for (Map.Entry<String, Integer> score : scores.entrySet()) {
+      String reason = score.getKey();
+      Integer amount = score.getValue();
+      println(reason + ": " + amount);
+      totalScore += amount;
+    }
   }
 
   void update() {
@@ -69,7 +77,7 @@ class Scene_Score implements Scene {
     text("Your score:", width/4f, height*0.1);
 
     textSize(148);
-    text(score, width/4f, height*0.2);
+    text(totalScore, width/4f, height*0.2);
 
     textSize(48);
     text("Name:", width/4, height*0.5);
@@ -147,7 +155,7 @@ class Scene_Score implements Scene {
         Date now = new Date();
         String strDate = sdfDate.format(now);
         newRow.setString("time", strDate);
-        newRow.setInt("score", score);
+        newRow.setInt("score", totalScore);
 
         highscores.trim();
         highscores.sortReverse("score");
