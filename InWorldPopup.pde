@@ -32,7 +32,7 @@ class InWorldPopup {
     canvas.textSize(size);
     canvas.textAlign(CENTER, CENTER);
     if (shakeStrength != 0) {
-      if (frameCount % 2 == 0) { //only every OTHER frame, not every frame
+      if (frameCount % 3 == 0) { //only every OTHER frame, not every frame
         shakeOffset.set(random(-shakeStrength, shakeStrength), random(-shakeStrength, shakeStrength));
       }
     }
