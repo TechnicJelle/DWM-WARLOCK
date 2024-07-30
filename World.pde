@@ -85,6 +85,10 @@ class World implements Scene {
     sfxGun.play();
     catchAttempts++;
     if (pos.dist(fox.pos) < 32) {
+      int chickensSavedScore = round(amountOfChickensSaved * 500);
+      scores.put("Chickens Saved", chickensSavedScore);
+      int timePenalty = round(-10 * timeSinceSaveStart);
+      scores.put("Time Penalty", timePenalty);
       int accuracyBonus = max(0, ((amountOfChickensSaved+1) * 100) - (catchAttempts * 50));
       score = round((amountOfChickensSaved * 500) - (timeSinceSaveStart * 10) + accuracyBonus);
       millisAtFoxDeath = millis();
@@ -128,8 +132,8 @@ class World implements Scene {
       popup.render(canvas);
     }
 
-    for (PVector corpse : corpses){
-       canvas.image(grChickenDead,corpse.x,corpse.y);
+    for (PVector corpse : corpses) {
+      canvas.image(grChickenDead, corpse.x, corpse.y);
     }
 
     //<-- Draw stuff in the world here (on the canvas)
