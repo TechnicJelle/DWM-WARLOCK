@@ -73,16 +73,52 @@ class Scene_Score implements Scene {
     textAlign(CENTER, TOP);
 
 
+    // --- Score makeup ---
+
+    textSize(52);
+    text("Your score:", width/4f, height*0.03);
+
+    {
+      int i = 0;
+      float padLR = width/80f;
+      float y = 0;
+      for (Map.Entry<String, Integer> score : scores.entrySet()) {
+        y = height*0.16 + height*0.07*i;
+        String reason = score.getKey();
+        textSize(34);
+        textAlign(LEFT, BOTTOM);
+        text(reason + ":", padLR, y);
+
+        Integer amount = score.getValue();
+        textSize(50);
+        textAlign(RIGHT, BOTTOM);
+        text(amount, width/2f-padLR, y);
+        i++;
+      }
+
+      y+=height*0.01;
+
+      stroke(128);
+      strokeWeight(1);
+      line(padLR, y, width/2f - padLR, y);
+
+
+      y+=height*0.03;
+
+      textAlign(LEFT, TOP);
+      textSize(54);
+      text("Total:", padLR, y);
+
+      textAlign(RIGHT, TOP);
+      textSize(128);
+      text(totalScore, width/2f - padLR, y);
+    }
+
     // --- Submit score ---
 
+    textAlign(CENTER, TOP);
     textSize(48);
-    text("Your score:", width/4f, height*0.1);
-
-    textSize(148);
-    text(totalScore, width/4f, height*0.2);
-
-    textSize(48);
-    text("Name:", width/4, height*0.5);
+    text("Name:", width/4, height*0.65);
 
     textSize(128);
     rectMode(CENTER);
@@ -90,7 +126,7 @@ class Scene_Score implements Scene {
     float charWidth = 80;
     for (int i = 0; i < 3; i++) {
       float x = (width/4) - charWidth + (charWidth * i);
-      float y = height*0.6;
+      float y = height*0.75;
       if (millis() % 1060 > 530 && i == textInputted.length()) {
         fill(255);
       } else {
@@ -108,13 +144,13 @@ class Scene_Score implements Scene {
     if (textInputting) {
       textSize(48);
       if (textInputted.length() != 3) {
-        text("Type your user tag!", width/4, height*0.9);
+        text("Type your user tag!", width/4, height*0.92);
       } else {
-        text("Enter to submit!", width/4, height*0.9);
+        text("Enter to submit!", width/4, height*0.92);
       }
     } else {
       textSize(48);
-      text("Click to go the menu", width/4, height*0.9);
+      text("Click to go the menu", width/4, height*0.92);
     }
 
     // --- Highscores list ---
