@@ -83,7 +83,7 @@ class World implements Scene {
     sfxGun.play();
     if (pos.dist(fox.pos) < 32) {
       int chickensSavedScore = round(amountOfChickensSaved * 500);
-      scores.put("Chickens Saved", chickensSavedScore);
+      scores.put("Chickens Saved (" + amountOfChickensSaved + "/" + amountOfChickensToSpawn + ")", chickensSavedScore);
       int timePenalty = round(-10 * timeSinceSaveStart);
       scores.put("Time Penalty", timePenalty);
       millisAtFoxDeath = millis();
