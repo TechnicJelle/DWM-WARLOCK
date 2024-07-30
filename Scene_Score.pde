@@ -5,17 +5,60 @@ class Scene_Score implements Scene {
   boolean textInputting = true;
   String textInputted = "";
 
+  int millisAtSceneInit = -1;
+  int afkTimerMillis = 1000 * 60;
+  int afkCountdownMillis = 1000 * 10; //how many millis must be left before it actually shows the countdown
+
   int topCount = 10; //amount of players that is visible in the list
+
+  void restartAfkCountdown() {
+    millisAtSceneInit = millis();
+  }
 
   void init() {
     textInputting = true;
     textInputted = "";
+    restartAfkCountdown();
   }
 
   void update() {
   }
 
   void render() {
+    // --- Vertical split line through the middle ---
+    stroke(255);
+    strokeWeight(2);
+    line(width/2, 0, width/2, height);
+
+
+    // --- AFK Countdown Timer ---
+    int millisSinceSceneInit = millis() - millisAtSceneInit;
+    int millisLeft = afkTimerMillis - millisSinceSceneInit;
+    if (millisLeft <= afkCountdownMillis) {
+      textAlign(CENTER, CENTER);
+      int secondsLeft = millisLeft/1000;
+      //height
+      float alarmness = map(secondsLeft, afkCountdownMillis/1000, 0, 0, 100);
+      float textHeight = 48 + alarmness;
+      textSize(textHeight);
+
+      //width
+      String text = str(secondsLeft + 1);
+      float textWidth = textWidth(text);
+
+      rectMode(CENTER);
+      fill(0);
+      noStroke();
+      rect(width/2, height/2, textWidth, textHeight);
+
+      fill(255);
+      text(text, width/2, height/2);
+
+      if (millisLeft <= 0) {
+        gameState.nextScene();
+      }
+    }
+
     fill(255);
     textAlign(CENTER, TOP);
 
@@ -53,10 +96,6 @@ class Scene_Score implements Scene {
       text("Click to go the menu", width/4, height*0.9);
     }
 
-    stroke(255);
-    strokeWeight(2);
-    line(width/2, 0, width/2, height);
-
     // --- Highscores list ---
 
     textSize(48);
@@ -77,18 +116,22 @@ class Scene_Score implements Scene {
   }
 
   void mousePressed() {
+    restartAfkCountdown();
     if (!textInputting) {
       gameState.nextScene();
     }
   }
 
   void mouseDragged() {
+    restartAfkCountdown();
   }
 
   void mouseReleased() {
+    restartAfkCountdown();
   }
 
   void keyPressed() {
+    restartAfkCountdown();
     if (textInputting) {
       if (key == BACKSPACE || key == DELETE) {
         if (textInputted.length() > 0) {
@@ -128,6 +171,7 @@ class Scene_Score implements Scene {
   }
 
   void keyReleased() {
+    restartAfkCountdown();
   }
 
   void cleanup() {
