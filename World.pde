@@ -90,7 +90,7 @@ class World implements Scene {
       int timePenalty = round(-10 * timeSinceSaveStart);
       scores.put("Time Penalty", timePenalty);
       int accuracyBonus = max(0, ((amountOfChickensSaved+1) * 100) - (catchAttempts * 50));
-      score = round((amountOfChickensSaved * 500) - (timeSinceSaveStart * 10) + accuracyBonus);
+      scores.put("Accuracy Bonus", accuracyBonus);
       millisAtFoxDeath = millis();
 
       fox.state = FoxState.DEAD;
