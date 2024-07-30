@@ -96,7 +96,7 @@ class Scene_Score implements Scene {
       } else {
         fill(255, 50);
       }
-      rect(x, y + 100, charWidth-10, 5); //underline
+      //rect(x, y + 100, charWidth-10, 5); //underline
       rect(x, y + 42, charWidth-10, 100); //block
       if (i < textInputted.length()) {
         fill(255);
