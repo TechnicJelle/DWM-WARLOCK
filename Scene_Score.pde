@@ -20,6 +20,7 @@ class Scene_Score implements Scene {
   void init() {
     textInputting = true;
     textInputted = "";
+    totalScore = 0;
     restartAfkCountdown();
 
     for (Map.Entry<String, Integer> score : scores.entrySet()) {
