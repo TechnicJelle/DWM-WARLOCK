@@ -1,6 +1,7 @@
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+
 class Scene_Score implements Scene {
   boolean textInputting = true;
   String textInputted = "";
@@ -75,16 +76,27 @@ class Scene_Score implements Scene {
     text("Name:", width/4, height*0.5);
 
     textSize(128);
-    text(textInputted, width/4, height*0.6);
-
-    if (textInputting) {
-      if (millis() % 2000 < 1000) {
-        float x = width/4 + textWidth(textInputted)/2;
-        stroke(255);
-        strokeWeight(2);
-        line(x, height*0.59, x, height*0.73);
+    rectMode(CENTER);
+    noStroke();
+    float charWidth = 80;
+    for (int i = 0; i < 3; i++) {
+      float x = (width/4) - charWidth + (charWidth * i);
+      float y = height*0.6;
+      if (millis() % 1060 > 530 && i == textInputted.length()) {
+        fill(255);
+      } else {
+        fill(255, 50);
       }
+      rect(x, y + 100, charWidth-10, 5); //underline
+      rect(x, y + 42, charWidth-10, 100); //block
+      if (i < textInputted.length()) {
+        fill(255);
+        text(textInputted.charAt(i), x, y);
+      }
+    }
 
+    fill(255);
+    if (textInputting) {
       textSize(48);
       if (textInputted.length() != 3) {
         text("Type your user tag!", width/4, height*0.9);
