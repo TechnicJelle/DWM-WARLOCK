@@ -151,6 +151,7 @@ class Scene_InGame implements Scene {
           InWorldPopup popup = new InWorldPopup(PVector.add(fox.pos, new PVector(0, -20)), "Bask in your violence", baskSeconds);
           popup.colour = RED;
           popup.size = 16;
+          popup.shakeStrength = 2;
           world.popups.add(popup);
         }
         break;
