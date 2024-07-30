@@ -37,7 +37,7 @@ class Scene_Score implements Scene {
     noStroke();
     float charWidth = 80;
     for (int i = 0; i < 3; i++) {
-      float x = width/4 - charWidth + charWidth * i;
+      float x = (width/4) - charWidth + (charWidth * i);
       float y = height*0.6;
       if (millis() % 1060 > 530 && i == textInputted.length()) {
         fill(255);
