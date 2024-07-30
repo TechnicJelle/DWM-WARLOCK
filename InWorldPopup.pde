@@ -10,6 +10,7 @@ class InWorldPopup {
   boolean expired;
   int shakeStrength;
   PVector shakeOffset;
+  int shakeSpeed;
 
   InWorldPopup(PVector pos, String text, float time) {
     this.pos = pos;
@@ -20,6 +21,7 @@ class InWorldPopup {
     expired = false;
     shakeStrength = 0;
     shakeOffset = new PVector(0, 0);
+    shakeSpeed = 3; //the higher the number, the slower the shake. cannot go lower than 1.
   }
 
   void update() {
@@ -32,7 +34,7 @@ class InWorldPopup {
     canvas.textSize(size);
     canvas.textAlign(CENTER, CENTER);
     if (shakeStrength != 0) {
-      if (frameCount % 3 == 0) { //only every OTHER frame, not every frame
+      if (frameCount % shakeSpeed == 0) { //only every OTHER frame, not every frame
         shakeOffset.set(random(-shakeStrength, shakeStrength), random(-shakeStrength, shakeStrength));
       }
     }
