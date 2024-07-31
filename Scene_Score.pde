@@ -6,15 +6,17 @@ class Scene_Score implements Scene {
   boolean textInputting = true;
   String textInputted = "";
   int totalScore = 0;
+  int beepIndex = 0;
 
   int millisAtSceneInit = -1;
+  int millisAFKTimerReset = -1;
   int afkTimerMillis = 1000 * 60;
   int afkCountdownMillis = 1000 * 10; //how many millis must be left before it actually shows the countdown
 
   int topCount = 10; //amount of players that is visible in the list
 
   void restartAfkCountdown() {
-    millisAtSceneInit = millis();
+    millisAFKTimerReset = millis();
   }
 
   void init() {
@@ -22,11 +24,11 @@ class Scene_Score implements Scene {
     textInputted = "";
     totalScore = 0;
     restartAfkCountdown();
+    millisAtSceneInit = millis();
+    beepIndex = 0;
 
     for (Map.Entry<String, Integer> score : scores.entrySet()) {
-      String reason = score.getKey();
       Integer amount = score.getValue();
-      println(reason + ": " + amount);
       totalScore += amount;
     }
   }
@@ -35,6 +37,8 @@ class Scene_Score implements Scene {
   }
 
   void render() {
+    int millisSinceSceneInit = millis() - millisAtSceneInit;
+
     // --- Vertical split line through the middle ---
     stroke(255);
     strokeWeight(2);
@@ -42,11 +46,11 @@ class Scene_Score implements Scene {
 
 
     // --- AFK Countdown Timer ---
-    int millisSinceSceneInit = millis() - millisAtSceneInit;
-    int millisLeft = afkTimerMillis - millisSinceSceneInit;
-    if (millisLeft <= afkCountdownMillis) {
+    int millisSinceAFKReset = millis() - millisAFKTimerReset;
+    int millisLeftAFK = afkTimerMillis - millisSinceAFKReset;
+    if (millisLeftAFK <= afkCountdownMillis) {
       textAlign(CENTER, CENTER);
-      int secondsLeft = millisLeft/1000;
+      int secondsLeft = millisLeftAFK/1000;
       //height
       float alarmness = map(secondsLeft, afkCountdownMillis/1000, 0, 0, 100);
       float textHeight = 48 + alarmness;
@@ -64,7 +68,7 @@ class Scene_Score implements Scene {
       fill(255);
       text(text, width/2, height/2);
 
-      if (millisLeft <= 0) {
+      if (millisLeftAFK <= 0) {
         gameState.nextScene();
       }
     }
@@ -81,9 +85,16 @@ class Scene_Score implements Scene {
     {
       int i = 0;
       float padLR = width/80f;
-      float y = 0;
+      float y = height*0.09;
       for (Map.Entry<String, Integer> score : scores.entrySet()) {
-        y = height*0.16 + height*0.07*i;
+        if (millisSinceSceneInit < (i+1) * 1000) {
+          break;
+        }
+        if (beepIndex == i) {
+          sfxScorePart.play();
+          beepIndex++;
+        }
+        y += height*0.07;
         String reason = score.getKey();
         textSize(34);
         textAlign(LEFT, BOTTOM);
@@ -96,23 +107,27 @@ class Scene_Score implements Scene {
         i++;
       }
 
-      y+=height*0.01;
+      if (i == scores.size() && millisSinceSceneInit > (i+1) * 1000) {
+        if (beepIndex == i) {
+          sfxScoreTotal.play();
+          beepIndex++;
+        }
+        y+=height*0.01;
+        stroke(128);
+        strokeWeight(1);
+        line(padLR, y, width/2f - padLR, y);
 
-      stroke(128);
-      strokeWeight(1);
-      line(padLR, y, width/2f - padLR, y);
+        y+=height*0.03;
+        textAlign(LEFT, TOP);
+        textSize(54);
+        text("Total:", padLR, y);
 
-
-      y+=height*0.03;
-
-      textAlign(LEFT, TOP);
-      textSize(54);
-      text("Total:", padLR, y);
-
-      textAlign(RIGHT, TOP);
-      textSize(128);
-      text(totalScore, width/2f - padLR, y);
+        textAlign(RIGHT, TOP);
+        textSize(128);
+        text(totalScore, width/2f - padLR, y);
+      }
     }
+
 
     // --- Submit score ---
 
@@ -152,6 +167,7 @@ class Scene_Score implements Scene {
       textSize(48);
       text("Click to go the menu", width/4, height*0.92);
     }
+
 
     // --- Highscores list ---
 
