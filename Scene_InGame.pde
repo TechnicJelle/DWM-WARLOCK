@@ -19,7 +19,7 @@ class Scene_InGame implements Scene {
 
   boolean netIsDown;
 
-  float baskSeconds = 5;
+  float baskSeconds = 3;
 
   void init() {
     score = 0;
