@@ -18,6 +18,8 @@ SoundFile sfxTyped;
 SoundFile sfxChicken;
 SoundFile sfxNet;
 SoundFile sfxGun;
+SoundFile sfxScorePart;
+SoundFile sfxScoreTotal;
 SoundFile sfxHighscores;
 SoundFile sfxHighscoresTop;
 
@@ -61,6 +63,8 @@ void setup() {
   sfxChicken = new SoundFile(this, "sfx/chicken.wav");
   sfxNet = new SoundFile(this, "sfx/net.wav");
   sfxGun = new SoundFile(this, "sfx/gun.wav");
+  sfxScorePart = new SoundFile(this, "sfx/score_part.wav");
+  sfxScoreTotal = new SoundFile(this, "sfx/score_total.wav");
   sfxHighscores = new SoundFile(this, "sfx/highscores.wav");
   sfxHighscoresTop = new SoundFile(this, "sfx/highscores_top.wav");
 
